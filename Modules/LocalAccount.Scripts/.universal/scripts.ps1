@@ -1,1 +1,1 @@
-New-PSUScript -Module 'LocalAccount.Scripts.psm1' -Command 'New-PSULocalAccount' -Description 'Creates a new local user account.'
+New-PSUScript -Module 'LocalAccount.Scripts' -Command 'New-PSULocalAccount' -Description 'Creates a new local user account.'
