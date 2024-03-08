@@ -40,6 +40,10 @@ You can add resources found in this library to your PSU instance by visiting the
 
 ![](/images/modules.png)
 
+## Versioning
+
+During the prerelease versions of PowerShell Universal v5, we will be incrementing the minor version of the script library for releases. Once PowerShell Universal v5 reaches general availability, the release versions will match the latest PSU v5 version.
+
 ## Contribution guidelines
 
 If you would like to contribute to this repository, please submit a pull request. We accept any PowerShell script that you would like to share with the community. We recommend structure it so that it can be used with PowerShell Universal. 
