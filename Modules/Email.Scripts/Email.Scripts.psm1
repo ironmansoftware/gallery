@@ -23,6 +23,12 @@ function Send-PSUEmail {
         $Job
     )
 
+    $PSHtml = Import-Module PSHtml -PassThru -ErrorAction SilentlyContinue
+
+    if (-not $PSHtml) {
+        throw "PSHtml module is not installed. Please install this module."
+    }
+
     if ($PSCmdlet.ParameterSetName -eq 'Job') {
         $JobId = $Job.Id
         $Script = $Job.ScriptFullPath
