@@ -14,7 +14,7 @@ This repository is automatically installed with PowerShell Universal v5 and inte
 
 ![](/images/library.png)
 
-The library contains a collection of scripts that you can use in your environment. You can install these scripts directly from the library page.
+The library contains a collection of modules that you can use in your environment. You can install these modules directly from the library page.
 
 ![](/images/library-page.png)
 
