@@ -1,5 +1,5 @@
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
-Install-Module -Name PSHtml
+Install-Module -Name PSHtml -Force
 
 Remove-Item -Path "$PSScriptRoot/output/**/*.nupkg" -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -Path "$PSScriptRoot/output" -ItemType Directory -Force
