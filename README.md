@@ -30,10 +30,10 @@ This repository can be installed with PowerShell Universal v4 by registering it 
 
 #### Installation
 
-PowerShell Universal uses PowerShellGet v3. You will need to install this module. 
+PowerShell Universal uses PSResourceGet. You will need to install this module. 
 
 ```powershell
-Install-Module -Name PowerShellGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
+Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
 ```
 
 To install this repository with PowerShell Universal v4, you can use the following command. 
