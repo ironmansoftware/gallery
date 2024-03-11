@@ -64,6 +64,14 @@ Each script should be in a folder that contains the script and a `psd1` file tha
 
 Tags, images and description of your module will appear directly in the platform. 
 
+### Tags
+
+The following tags are used to categorize modules in PowerShell Universal 
+
+- script - Contains a script resource
+- powershell-app - Contains a PowerShell App 
+- blazor-app - Contains a Blazor App
+
 ### Documentation
 
 We prefer that you include comment based help. A `readme.md` is also useful to better describe your module or solution. The readme content will be displayed in PowerShell Universal.
@@ -75,3 +83,4 @@ We currently do not require tests but prefer any tests are written in Pester. We
 ### Building
 
 The repository is automatically build using the `build.ps1` script. It finds all PSD1 files and generates nuget packages for each module. These will be stored in the output folder. They should not be checked in. A .gitignore has been created to prevent this.
+
