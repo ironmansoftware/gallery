@@ -1,0 +1,1 @@
+New-PSUBlazorApp -Name "System Information" -Url "system-information"
