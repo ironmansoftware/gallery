@@ -10,7 +10,7 @@ This repository is a collection of scripts that are maintained by Ironman Softwa
 
 ### PowerShell Universal v5
 
-This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the library by click Platform \ Library. 
+This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the library by clicking Platform \ Library. 
 
 ![](/images/library.png)
 
