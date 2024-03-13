@@ -1,0 +1,1 @@
+New-PSUBlazorApp -Name "PowerShell Information" -Url "powershell-information"
