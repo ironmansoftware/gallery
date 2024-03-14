@@ -6,6 +6,20 @@ Public library of scripts maintained by Ironman Software.
 
 This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5. 
 
+## Categories 
+
+### [Apps](/apps)
+
+Contains full Blazor and PowerShell apps that can be run with PowerShell Universal.
+
+### [Notifications](/notifications)
+
+Contains scripts that can be used to send notifications like email and chat apps.
+
+### [Windows](/windows)
+
+Contains scripts that are specific to Windows environments.
+
 ## Usage
 
 ### PowerShell Universal v5

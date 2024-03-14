@@ -6,6 +6,6 @@ New-Item -Path "$PSScriptRoot/output" -ItemType Directory -Force
 Unregister-PSResourceRepository -Name PSUScriptLibrary -ErrorAction SilentlyContinue
 Register-PSResourceRepository -Name PSUScriptLibrary -Uri "$PSScriptRoot/output" 
 
-Get-ChildItem "$PSScriptRoot/Modules/**/*.psd1" -Recurse | ForEach-Object {
+Get-ChildItem "$PSScriptRoot/**/*.psd1" -Recurse | ForEach-Object {
     Publish-PSResource -Repository PSUScriptLibrary -Path $_.FullName
 }
