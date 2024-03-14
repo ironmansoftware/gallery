@@ -2,6 +2,8 @@
 
 Public library of scripts maintained by Ironman Software. 
 
+![](https://img.shields.io/badge/6-modules-blue) ![](https://img.shields.io/badge/14-functions-green) ![](https://img.shields.io/badge/2-apps-yellow)
+
 ## What is this repository for?
 
 This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5. 
