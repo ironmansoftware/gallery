@@ -8,15 +8,15 @@ This repository is a collection of scripts that are maintained by Ironman Softwa
 
 ## Categories 
 
-### [Apps](/apps)
+### [Apps](/Apps)
 
 Contains full Blazor and PowerShell apps that can be run with PowerShell Universal.
 
-### [Notifications](/notifications)
+### [Notifications](/Notifications)
 
 Contains scripts that can be used to send notifications like email and chat apps.
 
-### [Windows](/windows)
+### [Windows](/Windows)
 
 Contains scripts that are specific to Windows environments.
 
