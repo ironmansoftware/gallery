@@ -108,13 +108,13 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @('powershell-app')
+            Tags        = @('powershell-app')
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
+            LicenseUri  = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/Modules/Apps/PowerShell/Tools'
+            ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Apps/PowerShell/Tools'
 
             # A URL to an icon representing this module.
             # IconUri = ''
@@ -130,6 +130,8 @@
 
             # External dependent modules of this module
             # ExternalModuleDependencies = @()
+
+            DisplayName = "PowerShell App Tools"
 
         } # End of PSData hashtable
 

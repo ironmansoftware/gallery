@@ -95,16 +95,16 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @('script')
+            Tags        = @('script')
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
+            LicenseUri  = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/Modules/Email.Scripts'
+            ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Notifications/Email.Scripts'
 
             # A URL to an icon representing this module.
-            IconUri    = 'https://github.com/ironmansoftware/scripts/Modules/Email.Scripts/logo.png'
+            IconUri     = 'https://github.com/ironmansoftware/scripts/Notifications/Email.Scripts/logo.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''
@@ -117,6 +117,8 @@
 
             # External dependent modules of this module
             # ExternalModuleDependencies = @()
+
+            DisplayName = "Email Scripts"
 
         } # End of PSData hashtable
 
