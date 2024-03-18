@@ -2,13 +2,13 @@ function New-UDCenter {
     <#
     .SYNOPSIS
     Center items within a dashboard.
-    
+
     .DESCRIPTION
     Center items within a dashboard.
-    
+
     .PARAMETER Content
-    The items to center. 
-    
+    The items to center.
+
     .EXAMPLE
     New-UDCenter -Content {
         New-UDTypography -Text 'Loading groups' -Variant h5
@@ -29,10 +29,10 @@ function New-UDRight {
     <#
     .SYNOPSIS
     Pull items to the right
-    
+
     .DESCRIPTION
     Pull items to the right
-    
+
     .PARAMETER Content
     The content to move to the right.
     #>
@@ -89,10 +89,50 @@ function New-UDConfirm {
 function New-UDLineBreak {
     <#
     .SYNOPSIS
-    Adds a line break to the dashboard.
+    Creates a line break element for Universal Dashboard.
+
+    .DESCRIPTION
+    The New-UDLineBreak function creates a line break element for Universal Dashboard. It can be used to add vertical spacing between elements.
+
+    .PARAMETER Height
+    Specifies the height of the line break element. The default value is "20px".
+
+    .PARAMETER Fixed
+    Indicates whether the height of the line break element is fixed using br. If this switch is specified, the height parameter is ignored.
+
+    .EXAMPLE
+    New-UDLineBreak
+    Creates a line break element with a default height of 20 pixels.
+
+    .EXAMPLE
+    New-UDLineBreak -Height "30px"
+    Creates a line break element with a height of 30 pixels.
+
+    .EXAMPLE
+    New-UDLineBreak -Fixed
+    Creates a line break element with a fixed height.
+
     #>
-    New-UDElement -Tag 'div' -Content {
-        New-UDElement -Tag 'br'
+    [CmdletBinding(DefaultParameterSetName = 'Variable Height')]
+    param(
+        [Parameter(ParameterSetName = 'Variable Height')]
+        [string]$Height = "20px",
+        [Parameter(ParameterSetName = 'Fixed Height')]
+        [switch]$Fixed
+    )
+    Process {
+        if ($Fixed) {
+            New-UDElement -Tag 'div' -Content {
+                New-UDElement -Tag 'br'
+            }
+        }
+        else {
+            New-UDElement -Tag 'div' -Content {} -Attributes @{
+                style = @{
+                    height = $Height
+                }
+            }
+        }
     }
 }
 
@@ -101,7 +141,7 @@ function Show-UDEventData {
     <#
     .SYNOPSIS
     Shows the $EventData object as JSON in a modal.
-    
+
     .DESCRIPTION
     Shows the $EventData object as JSON in a modal.
     #>
@@ -112,11 +152,11 @@ function Show-UDEventData {
     }
 }
 
-function Reset-UDPage { 
+function Reset-UDPage {
     <#
     .SYNOPSIS
     Reloads the current page.
-    
+
     .DESCRIPTION
     Reloads the current page. This uses JavaScript directly.
     #>
@@ -128,13 +168,13 @@ function Show-UDObject {
     <#
     .SYNOPSIS
     Shows an object's properties in a modal.
-    
+
     .DESCRIPTION
     Shows an object's properties in a modal.
-    
+
     .PARAMETER InputObject
     The object to show.
-    
+
     .EXAMPLE
     $EventData | Show-UDObject # removes the array data
     Show-UDObject -InputObject $eventData # better way to view
@@ -151,7 +191,7 @@ function Show-UDObject {
         #         $Data += [PSCustomObject]@{
         #             Key   = $_.Name
         #             Value = $InputObject."$($_.Name)"
-        #         } 
+        #         }
         #     }
 
         #     New-UDTable -Data $Data
@@ -171,7 +211,7 @@ function Get-UDCache {
     <#
     .SYNOPSIS
     Returns all items in the $Cache: scope.
-    
+
     .DESCRIPTION
     Returns all items in the $Cache: scope.
     #>
@@ -182,13 +222,13 @@ function Show-UDVariable {
     <#
     .SYNOPSIS
     Shows variables and their values in a modal.
-    
+
     .DESCRIPTION
     Shows variables and their values in a modal.
-    
+
     .PARAMETER Name
     A name. If not specified, all variables are returned.
-    
+
     .EXAMPLE
     Show-UDVariable -Name 'EventData'
     #>
@@ -196,7 +236,7 @@ function Show-UDVariable {
 
     Show-UDModal -Content {
         New-UDDynamic -Content {
-            $Variables = Get-Variable -Name "*$Name"  
+            $Variables = Get-Variable -Name "*$Name"
 
             New-UDTable -Title 'Variables' -Icon (New-UDIcon -Icon 'SquareRootVariable') -Data $Variables -Columns @(
                 New-UDTableColumn -Property Name -ShowFilter
@@ -219,7 +259,7 @@ function Show-UDThemeColorViewer {
     <#
     .SYNOPSIS
     Shows all the theme colors in a modal.
-    
+
     .DESCRIPTION
     Shows all the theme colors in a modal.
     #>
@@ -310,7 +350,7 @@ function Show-UDThemeColorViewer {
                 }
             }
         } -LoadingComponent {
-            New-UDSkeleton 
+            New-UDSkeleton
         }
 
     } -FullWidth -MaxWidth xl
