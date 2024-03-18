@@ -1,0 +1,1 @@
+New-PSURole -Name 'Network Utilities User' -Description "Users that have access to the Network Utilities app."
