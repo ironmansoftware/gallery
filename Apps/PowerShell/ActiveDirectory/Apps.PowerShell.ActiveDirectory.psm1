@@ -1,9 +1,3 @@
-
-
-Get-ChildItem $PSScriptRoot\Reports | ForEach-Object {
-    . $_.FullName
-}
-
 function New-UDActiveDirectoryApp {
     $Navigation = {
         Protect-UDSection -Role @("Administrator", "AD Admin", "AD Users") -Children {
@@ -84,63 +78,63 @@ function New-UDActiveDirectoryApp {
             Title       = "Computers - Disabled"
             Url         = "/reports/computers/disabled"
             Description = "A report of computers that are disabled."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDDisabledComputers"
         }
         @{
             Title       = "Computers - Domain Controllers"
             Url         = "/reports/computers/domain-controllers"
             Description = "A report of domain controllers."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDDomainControllers"
         }
         @{
             Title       = "Computers - Inactive"
             Url         = "/reports/computers/inactive"
             Description = "A report of computers that have been inactive for 30 days or more."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDInactiveComputers"
         }
         @{
             Title       = "Users - Inactive"
             Url         = "/reports/users/inactive"
             Description = "A report of users that have been inactive for 30 days or more."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDInactiveUsers"
         }
         @{
             Title       = "Users - Locked Out"
             Url         = "/reports/users/locked-out"
             Description = "A report of users that are locked out."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDLockedOutUsers"
         }
         @{
             Title       = "Users - Never Logged On"
             Url         = "/reports/users/never-logged-on"
             Description = "A report of users that have never logged on."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDUsersNeverLoggedOn"
         }
         @{
             Title       = "Users - Recently Created"
             Url         = "/reports/users/recently-created"
             Description = "A report of users that have been created in the last 30 days."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDUsersRecentlyCreated"
         }
         @{
             Title       = "Users - Recently Modified"
             Url         = "/reports/users/recently-modified"
             Description = "A report of users that have been modified in the last 30 days."
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDUsersRecentlyModified"
         }
         @{
             Title       = "Users - Without Manager"
             Url         = "/reports/users/without-manager"
             Description = "A report of users that do not have managers"
-            Module      = "Universal.Apps.ActiveDirectory"
+            Module      = "ActiveDirectory.Scripts"
             Command     = "Get-UDUsersWithoutManager"
         }
     )

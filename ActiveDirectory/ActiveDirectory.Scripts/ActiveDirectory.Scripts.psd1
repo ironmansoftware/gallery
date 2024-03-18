@@ -9,28 +9,28 @@
 @{
 
     # Script module or binary module file associated with this manifest.
-    RootModule      = '.\Apps.PowerShell.ActiveDirectory.psm1'
+    RootModule        = '.\ActiveDirectory.Scripts.psm1'
 
     # Version number of this module.
-    ModuleVersion   = '0.0.1'
+    ModuleVersion     = '0.0.1'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
 
     # ID used to uniquely identify this module
-    GUID            = 'e4cbb7ae-3e48-487a-b12b-dba71279f3ce'
+    GUID              = 'ac1d4f52-8b08-478a-a862-978589aa8c3f'
 
     # Author of this module
-    Author          = 'Ironman Software'
+    Author            = 'Ironman Software'
 
     # Company or vendor of this module
-    CompanyName     = 'Ironman Software'
+    CompanyName       = 'Ironman Software'
 
     # Copyright statement for this module
-    Copyright       = '(c) Ironman Software. All rights reserved.'
+    Copyright         = '(c) Ironman Software. All rights reserved.'
 
     # Description of the functionality provided by this module
-    Description     = 'Active Directory tools built with PowerShell Universal. Reset passwords, restore deleted users, manage group membership and search for objects.'
+    Description       = 'Active Directory scripts.'
 
     # Minimum version of the PowerShell engine required by this module
     # PowerShellVersion = ''
@@ -51,7 +51,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules = @('ActiveDirectory.Scripts')
+    # RequiredModules = @()
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @()
@@ -69,7 +69,19 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    # FunctionsToExport = '*'
+    FunctionsToExport = @(
+        'New-UDActiveDirectoryApp',
+        'Get-UDDisabledComputers',
+        'Get-UDDomainControllers',
+        'Get-UDInactiveComputers',
+        'Get-UDInactiveUsers',
+        'Get-UDLockedOutUsers',
+        'Get-UDUsersNeverLoggedOn',
+        'Get-UDUsersRecentlyCreated',
+        'Get-UDUsersRecentlyDeleted',
+        'Get-UDUsersRecentlyModified',
+        'Get-UDUsersWithoutManager'
+    )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     # CmdletsToExport   = '*'
@@ -87,21 +99,21 @@
     # ModuleList = @()
 
     # List of all files packaged with this module
-    FileList        = @(".universal\dashboards.ps1")
+    FileList          = @(".universal\scripts.ps1")
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-    PrivateData     = @{
+    PrivateData       = @{
 
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @('powershell-app', 'ActiveDirectory')
+            Tags       = @('scripts', 'ActiveDirectory')
 
             # A URL to the license for this module.
             LicenseUri = 'https://github.com/ironmansoftware/scripts/tree/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/Apps/PowerShell/ActiveDirectory'
+            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/ActiveDirectory/ActiveDirectory.Scripts'
 
             # A URL to an icon representing this module.
             # IconUri    = ''

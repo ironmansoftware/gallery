@@ -10,6 +10,10 @@ This repository is a collection of scripts that are maintained by Ironman Softwa
 
 ## Categories
 
+### [Active Directory](/ActiveDirectory)
+
+Contains scripts that are specific to Active Directory.
+
 ### [Apps](/Apps)
 
 Contains full Blazor and PowerShell apps that can be run with PowerShell Universal.
