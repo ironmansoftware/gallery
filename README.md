@@ -28,6 +28,17 @@ Contains scripts that are specific to Windows environments.
 
 ## Usage
 
+### PowerShell 
+
+You can use this repository outside of PowerShell Universal by installing the release to your local machine. PowerShell Universal uses PSResourceGet. You will need to install this module.
+
+```powershell
+Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
+Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/scripts/releases/download/0.0.5/library.zip' -OutFile 'C:\downloads\modules.zip'
+Expand-Archive -Path 'C:\repos\scripts\modules.zip' -DestinationPath 'C:\repos\scripts\modules'
+Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'C:\repos\scripts\modules'
+```
+
 ### PowerShell Universal v5
 
 This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the library by clicking Platform \ Library.
