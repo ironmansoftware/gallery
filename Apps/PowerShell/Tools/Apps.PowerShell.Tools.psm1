@@ -366,6 +366,29 @@ function Show-UDThemeColorViewer {
 }
 
 Function ConvertTo-UDJson {
+    <#
+    .SYNOPSIS
+    Converts PowerShell objects to JSON format.
+
+    .DESCRIPTION
+    The ConvertTo-UDJson function converts PowerShell objects to JSON format. It supports various types of objects, including enums, DateTime, DateTimeOffset, Type, strings, switches, value types, collections (IList and IDictionary), and custom objects.
+
+    .PARAMETER InputObject
+    Specifies the input object to be converted to JSON. This parameter is mandatory and accepts pipeline input.
+
+    .PARAMETER Depth
+    Specifies the depth of the conversion. The default value is 2. A depth of 0 or less will only return the type name of the object.
+
+    .OUTPUTS
+    The function outputs the converted JSON representation of the input object.
+
+    .EXAMPLE
+    Convert-OutputObject -InputObject $object -Depth 2
+    Converts the $object to JSON format with a depth of 2.
+
+    .NOTES
+    This function is part of the Apps.PowerShell.Tools module.
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
@@ -375,7 +398,7 @@ Function ConvertTo-UDJson {
 
         [Parameter(Mandatory = $true)]
         [int]
-        $Depth
+        $Depth = 2
     )
 
     begin {
