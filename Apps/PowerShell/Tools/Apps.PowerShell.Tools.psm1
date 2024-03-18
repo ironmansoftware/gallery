@@ -178,46 +178,40 @@ function Reset-UDPage {
     Invoke-UDJavaScript "window.location.reload()"
 }
 
-
 function Show-UDObject {
     <#
     .SYNOPSIS
-    Shows an object's properties in a modal.
+    Displays an object in a modal dialog with syntax highlighting and copy functionality.
 
     .DESCRIPTION
-    Shows an object's properties in a modal.
+    The Show-UDObject function displays an object in a modal dialog with syntax highlighting and copy functionality. It takes an input object and optional depth parameter to control the depth of the object's properties that will be displayed.
 
     .PARAMETER InputObject
-    The object to show.
+    The input object to be displayed in the modal dialog.
+
+    .PARAMETER Depth
+    The maximum depth of the object's properties that will be displayed. Default value is 20.
 
     .EXAMPLE
-    $EventData | Show-UDObject # removes the array data
-    Show-UDObject -InputObject $eventData # better way to view
+    $myObject = Get-MyObject
+    Show-UDObject -InputObject $myObject -Depth 10
+
+    This example retrieves an object using the Get-MyObject function and displays it in a modal dialog with a maximum depth of 10.
     #>
     param(
         [Parameter(ValueFromPipeline, Mandatory)]
-        $InputObject
+        $InputObject,
+        $depth = 20
     )
 
     process {
-        # Show-UDModal {
-        #     $Data = @()
-        #     $InputObject | Get-Member -MemberType Property | ForEach-Object {
-        #         $Data += [PSCustomObject]@{
-        #             Key   = $_.Name
-        #             Value = $InputObject."$($_.Name)"
-        #         }
-        #     }
-
-        #     New-UDTable -Data $Data
-        # } -MaxWidth 'xl' -FullWidth
         Show-UDModal -Header {
             New-UDTypography -Text $($inputObject.gettype()) -Variant h4
         } -Content {
-            # New-UDTypography -Text "Type: $($eventdata.gettype())"
-            New-UDElement -Tag 'pre' -Content {
-                ConvertTo-Json -InputObject $inputObject
+            New-UDDynamic -LoadingComponent { New-UDProgress } -Content {
+                New-UDSyntaxHighlighter -Code (ConvertTo-Json -InputObject $inputObject -Depth $depth) -Language json
             }
+            New-UDButton -Text "Copy" -Icon Copy -OnClick { Set-UDClipboard -Data (ConvertTo-Json -InputObject $inputObject -Depth $depth) }
         }
     }
 }
