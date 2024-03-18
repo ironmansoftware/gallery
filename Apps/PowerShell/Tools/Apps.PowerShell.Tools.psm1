@@ -155,16 +155,26 @@ function New-UDLineBreak {
 function Show-UDEventData {
     <#
     .SYNOPSIS
-    Shows the $EventData object as JSON in a modal.
+    Displays the event data.
 
     .DESCRIPTION
-    Shows the $EventData object as JSON in a modal.
+    The Show-UDEventData function is used to display the event data. It takes an optional parameter, $depth, which specifies the depth of the object to display.
+
+    .PARAMETER depth
+    Specifies the depth of the object to display. The default value is 2.
+
+    .EXAMPLE
+    Show-UDEventData -depth 3
+    Displays the event data with a depth of 3.
+
+    .INPUTS
+    None.
+
+    .OUTPUTS
+    None.
     #>
-    Show-UDModal -Content {
-        New-UDElement -Tag 'pre' -Content {
-            ConvertTo-Json -InputObject $EventData
-        }
-    }
+    param($depth = 2)
+    Show-UDObject -InputObject $EventData -depth $depth
 }
 
 function Reset-UDPage {
@@ -267,99 +277,153 @@ function Show-UDVariable {
 function Show-UDThemeColorViewer {
     <#
     .SYNOPSIS
-    Shows all the theme colors in a modal.
+    Displays a theme color viewer for Universal Dashboard.
 
     .DESCRIPTION
-    Shows all the theme colors in a modal.
+    The Show-UDThemeColorViewer function displays a modal window that allows users to view and set different themes and their corresponding colors for Universal Dashboard. It provides options to set the default theme to either light or dark mode.
+
+    .PARAMETER Filter
+    Specifies an array of theme names to filter and display in the theme color viewer. Only the specified themes will be shown. If not specified, all available themes will be displayed.
+
+    .PARAMETER defaultTheme
+    Specifies the default theme to be set when the "Set Default - Light" or "Set Default - Dark" buttons are clicked. The default value is 'MaterialDesign'.
+
+    .EXAMPLE
+    Show-UDThemeColorViewer -Filter 'MaterialDesign', 'Desert', 'DoomOne' -defaultTheme 'Desert'
+    Displays the theme color viewer with the specified themes filtered and sets the default theme to 'Desert'.
+
+    .EXAMPLE
+    Show-UDThemeColorViewer
+    Displays the theme color viewer with all available themes and sets the default theme to 'MaterialDesign'.
     #>
+    [cmdletbinding()]
+    param(
+        [string[]]$Filter = $null,
+        $defaultTheme = 'MaterialDesign'
+    )
     Show-UDModal -Header {
-        New-UDTypography -Variant h3 -Content {
-            New-UDIcon -Icon  Images
-            "Themes"
+        New-UDStack -Direction row -Children {
+            New-UDTypography -Variant h3 -Content {
+                New-UDIcon -Icon  Images
+                " Themes"
+            }
+            New-UDHtml -Markup "&nbsp;&nbsp;"
+            New-UDButton -Text "Set Default - Light" -OnClick {
+                Set-UDTheme -Theme (Get-UDTheme -Name $defaultTheme)
+            }
+            New-UDButton -Text "Set Default - Dark" -Color secondary -OnClick {
+                Set-UDTheme -Theme (Get-UDTheme -Name $defaultTheme) -Variant dark
+            }
         }
     } -Content {
         New-UDDynamic -Content {
             New-UDRow -Columns {
-                Get-UDTheme | ForEach-Object {
+                $themes = @()
+                if ($filter) {
+                    $themes += 'MaterialDesign'
+                    $themes += $filter | Sort-Object
+                }
+                else {
+                    $themes = Get-UDTheme
+                    $themes += 'MaterialDesign'
+                    $themes = $themes | Where-Object { $_ -ne 'Cobalt Neon' -and $_ -ne 'duckbones' -and $_ -ne 'HaX0R_BLUE' -and $_ -ne 'HaX0R_GR33N' -and $_ -ne 'HaX0R_R3D' -and $_ -ne 'Retro' -and $_ -ne 'VibrantInk' -and $_ -ne 'C64' -and $_ -ne 'QB64 Super Dark Blue' -and $_ -ne 'kanagawabones' -and $_ -ne 'Darkside' -and $_ -ne 'Broadcast' -and $_ -ne 'Atom' -and $_ -ne 'primary' }  | Sort-Object
+                }
+                $themes | ForEach-Object {
                     New-UDColumn -SmallSize 4 -Content {
-                        $Theme = Get-UDTheme -Name $_
+                        try {
+                            $themeName = $_
+                            $Theme = Get-UDTheme -Name $themeName -ErrorAction SilentlyContinue
 
-                        New-UDStack -Direction row -Content {
-                            New-UDCard -Title "$_ - Light" -Content {
-                                New-UDElement -Content {
-                                    "Background"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.light.palette.text.primary
-                                        backgroundColor = $Theme.light.palette.background.default
-                                    }
-                                }  -Tag 'div'
+                            New-UDStack -Direction row -Content {
 
-                                New-UDElement -Content {
-                                    "Primary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.light.palette.text.primary
-                                        backgroundColor = $Theme.light.palette.primary.main
+                                New-UDCard -Title "$_ - Light" -Content {
+                                    New-UDButton -Text "Set $_" -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant light
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
                                     }
-                                }  -Tag 'div'
+                                    New-UDButton -Text "Set $_" -Color secondary -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant light
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
+                                    }
+                                    New-UDElement -Content {
+                                        "Background"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.light.palette.text.primary
+                                            backgroundColor = $Theme.light.overrides.MuiDrawer.paper.backgroundColor
+                                        }
+                                    }  -Tag 'div'
 
-                                New-UDElement -Content {
-                                    "Secondary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.light.palette.text.primary
-                                        backgroundColor = $Theme.light.palette.secondary.main
+                                    New-UDElement -Content {
+                                        "Primary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.light.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.light.palette.primary.main
+                                        }
+                                    }  -Tag 'div'
+
+                                    New-UDElement -Content {
+                                        "Secondary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.light.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.light.palette.secondary.main
+                                        }
+                                    } -Tag 'div'
+                                }
+
+                                New-UDCard -Title "$_ - Dark" -Content {
+                                    New-UDButton -Text "Set $_" -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant dark
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
                                     }
-                                } -Tag 'div'
+
+                                    New-UDButton -Text "Set $_" -Color secondary -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant dark
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
+                                    }
+
+                                    New-UDElement -Content {
+                                        "Primary Background"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.dark.palette.text.primary
+                                            backgroundColor = $Theme.dark.overrides.MuiDrawer.paper.backgroundColor
+                                        }
+                                    }  -Tag 'div'
+
+                                    New-UDElement -Content {
+                                        "Primary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.dark.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.dark.palette.primary.main
+                                        }
+                                    }  -Tag 'div'
+
+                                    New-UDElement -Content {
+                                        "Secondary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.dark.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.dark.palette.secondary.main
+                                        }
+                                    } -Tag 'div'
+                                }
+
                             }
 
-                            New-UDCard -Title "$_ - Dark" -Content {
-                                New-UDElement -Content {
-                                    "Background"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.dark.palette.text.primary
-                                        backgroundColor = $Theme.dark.palette.background.default
-                                    }
-                                }  -Tag 'div'
-
-                                New-UDElement -Content {
-                                    "Primary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.dark.palette.text.primary
-                                        backgroundColor = $Theme.dark.palette.primary.main
-                                    }
-                                }  -Tag 'div'
-
-                                New-UDElement -Content {
-                                    "Secondary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.dark.palette.text.primary
-                                        backgroundColor = $Theme.dark.palette.secondary.main
-                                    }
-                                } -Tag 'div'
-                            }
                         }
-
-
-
-                        # $Theme.light.palette.background.default
-                        # $Theme.light.palette.text.primary
-                        # $Theme.light.palette.primary.main
-                        # $Theme.light.palette.secondary.main
-
-                        # $Theme.dark.palette.background.default
-                        # $Theme.dark.palette.text.primary
-                        # $Theme.dark.palette.primary.main
-                        # $Theme.dark.palette.secondary.main
+                        catch {
+                            Write-Host $themeName
+                            Write-Host $_
+                        }
                     }
                 }
             }
         } -LoadingComponent {
-            New-UDSkeleton
+            New-UDProgress
         }
 
     } -FullWidth -MaxWidth xl
