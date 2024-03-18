@@ -1,14 +1,14 @@
 # Ironman Software Script Library
 
-Public library of scripts maintained by Ironman Software. 
+Public library of scripts maintained by Ironman Software.
 
 ![](https://img.shields.io/badge/6-modules-blue) ![](https://img.shields.io/badge/14-functions-green) ![](https://img.shields.io/badge/2-apps-yellow)
 
 ## What is this repository for?
 
-This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5. 
+This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5.
 
-## Categories 
+## Categories
 
 ### [Apps](/Apps)
 
@@ -26,7 +26,7 @@ Contains scripts that are specific to Windows environments.
 
 ### PowerShell Universal v5
 
-This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the library by clicking Platform \ Library. 
+This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the library by clicking Platform \ Library.
 
 ![](/images/library.png)
 
@@ -34,7 +34,7 @@ The library contains a collection of modules that you can use in your environmen
 
 ![](/images/library-page.png)
 
-You can also access the library from various resource pages. 
+You can also access the library from various resource pages.
 
 ![](/images/library-button.png)
 
@@ -42,20 +42,20 @@ Solutions installed from the library will appear in the Modules page and their r
 
 ### PowerShell Universal v4
 
-This repository can be installed with PowerShell Universal v4 by registering it as a module repository. 
+This repository can be installed with PowerShell Universal v4 by registering it as a module repository.
 
 #### Installation
 
-PowerShell Universal uses PSResourceGet. You will need to install this module. 
+PowerShell Universal uses PSResourceGet. You will need to install this module.
 
 ```powershell
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
 ```
 
-To install this repository with PowerShell Universal v4, you can use the following command. 
+To install this repository with PowerShell Universal v4, you can use the following command.
 
 ```powershell
-Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/scripts/releases/download/0.0.3/library.zip' -OutFile 'C:\downloads\modules.zip'
+Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/scripts/releases/download/0.0.5/library.zip' -OutFile 'C:\downloads\modules.zip'
 Expand-Archive -Path 'C:\repos\scripts\modules.zip' -DestinationPath 'C:\repos\scripts\modules'
 Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'C:\repos\scripts\modules'
 ```
@@ -72,20 +72,20 @@ During the prerelease versions of PowerShell Universal v5, we will be incrementi
 
 ## Contribution guidelines
 
-If you would like to contribute to this repository, please submit a pull request. We accept any PowerShell script that you would like to share with the community. We recommend structure it so that it can be used with PowerShell Universal. 
+If you would like to contribute to this repository, please submit a pull request. We accept any PowerShell script that you would like to share with the community. We recommend structure it so that it can be used with PowerShell Universal.
 
-### Structure 
+### Structure
 
-Each script should be in a folder that contains the script and a `psd1` file that contains the metadata for the script. To include resources in PowerShell Universal, you can create a `.universal` folder. These will be automatically exposed in PSU when the module is imported. You can view examples within the repository to see how this is accomplished. 
+Each script should be in a folder that contains the script and a `psd1` file that contains the metadata for the script. To include resources in PowerShell Universal, you can create a `.universal` folder. These will be automatically exposed in PSU when the module is imported. You can view examples within the repository to see how this is accomplished.
 
-Tags, images and description of your module will appear directly in the platform. 
+Tags, images and description of your module will appear directly in the platform.
 
 ### Tags
 
-The following tags are used to categorize modules in PowerShell Universal 
+The following tags are used to categorize modules in PowerShell Universal
 
 - script - Contains a script resource
-- powershell-app - Contains a PowerShell App 
+- powershell-app - Contains a PowerShell App
 - blazor-app - Contains a Blazor App
 
 ### Documentation
@@ -94,7 +94,7 @@ We prefer that you include comment based help. A `readme.md` is also useful to b
 
 ### Tests
 
-We currently do not require tests but prefer any tests are written in Pester. We will run these tests during CI builds. 
+We currently do not require tests but prefer any tests are written in Pester. We will run these tests during CI builds.
 
 ### Building
 

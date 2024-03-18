@@ -2,13 +2,13 @@ function New-UDCenter {
     <#
     .SYNOPSIS
     Center items within a dashboard.
-    
+
     .DESCRIPTION
     Center items within a dashboard.
-    
+
     .PARAMETER Content
-    The items to center. 
-    
+    The items to center.
+
     .EXAMPLE
     New-UDCenter -Content {
         New-UDTypography -Text 'Loading groups' -Variant h5
@@ -29,10 +29,10 @@ function New-UDRight {
     <#
     .SYNOPSIS
     Pull items to the right
-    
+
     .DESCRIPTION
     Pull items to the right
-    
+
     .PARAMETER Content
     The content to move to the right.
     #>
@@ -53,10 +53,25 @@ function New-UDRight {
 function New-UDConfirm {
     <#
     .SYNOPSIS
-    Shows a confirm object in a modal, returns either true or false.
+    Creates a confirmation dialog in Universal Dashboard.
 
     .DESCRIPTION
-    Shows a confirm object in a modal, returns either true or false.
+    The New-UDConfirm function creates a confirmation dialog in Universal Dashboard. It displays a modal dialog with a specified text and provides "Yes" and "No" buttons for the user to confirm or cancel the action.
+
+    .PARAMETER Text
+    Specifies the text to be displayed in the confirmation dialog. The default value is "Are you sure?".
+
+    .EXAMPLE
+    PS> if(New-UDConfirm -Text "Do you want to delete this item?") {
+        # Delete the item
+    }
+
+    This example creates a confirmation dialog with the specified text "Do you want to delete this item?".
+
+    .OUTPUTS
+    System.Boolean
+    Returns $true if the user clicks "Yes" and $false if the user clicks "No".
+
     #>
     [CmdletBinding()]
     param(
@@ -65,34 +80,74 @@ function New-UDConfirm {
             ValueFromPipelineByPropertyName = $true)]
         [string]$Text = 'Are you sure?'
     )
-    $Session:Result = $null
+    $Page:Result = $null
     Show-UDModal -Content {
         New-UDTypography -Text $Text
     } -Footer {
         New-UDButton -Text "Yes" -OnClick {
-            $Session:Result = $true
+            $Page:Result = $true
             Hide-UDModal
         } -Style @{"border-radius" = "4px" }
 
         New-UDButton -Text "No" -OnClick {
-            $Session:Result = $false
+            $Page:Result = $false
             Hide-UDModal
         } -Style @{"border-radius" = "4px" }
 
     } -Persistent
-    while ($Session:Result -eq $null) {
+    while ($null -eq $Page:Result) {
         Start-Sleep -Milliseconds 100
     }
-    return $Session:Result
+    return $Page:Result
 }
 
 function New-UDLineBreak {
     <#
     .SYNOPSIS
-    Adds a line break to the dashboard.
+    Creates a line break element for Universal Dashboard.
+
+    .DESCRIPTION
+    The New-UDLineBreak function creates a line break element for Universal Dashboard. It can be used to add vertical spacing between elements.
+
+    .PARAMETER Height
+    Specifies the height of the line break element. The default value is "20px".
+
+    .PARAMETER Fixed
+    Indicates whether the height of the line break element is fixed using br. If this switch is specified, the height parameter is ignored.
+
+    .EXAMPLE
+    New-UDLineBreak
+    Creates a line break element with a default height of 20 pixels.
+
+    .EXAMPLE
+    New-UDLineBreak -Height "30px"
+    Creates a line break element with a height of 30 pixels.
+
+    .EXAMPLE
+    New-UDLineBreak -Fixed
+    Creates a line break element with a fixed height.
+
     #>
-    New-UDElement -Tag 'div' -Content {
-        New-UDElement -Tag 'br'
+    [CmdletBinding(DefaultParameterSetName = 'Variable Height')]
+    param(
+        [Parameter(ParameterSetName = 'Variable Height')]
+        [string]$Height = "20px",
+        [Parameter(ParameterSetName = 'Fixed Height')]
+        [switch]$Fixed
+    )
+    Process {
+        if ($Fixed) {
+            New-UDElement -Tag 'div' -Content {
+                New-UDElement -Tag 'br'
+            }
+        }
+        else {
+            New-UDElement -Tag 'div' -Content {} -Attributes @{
+                style = @{
+                    height = $Height
+                }
+            }
+        }
     }
 }
 
@@ -100,69 +155,73 @@ function New-UDLineBreak {
 function Show-UDEventData {
     <#
     .SYNOPSIS
-    Shows the $EventData object as JSON in a modal.
-    
+    Displays the event data.
+
     .DESCRIPTION
-    Shows the $EventData object as JSON in a modal.
+    The Show-UDEventData function is used to display the event data. It takes an optional parameter, $depth, which specifies the depth of the object to display.
+
+    .PARAMETER depth
+    Specifies the depth of the object to display. The default value is 2.
+
+    .EXAMPLE
+    Show-UDEventData -depth 3
+    Displays the event data with a depth of 3.
+
+    .INPUTS
+    None.
+
+    .OUTPUTS
+    None.
     #>
-    Show-UDModal -Content {
-        New-UDElement -Tag 'pre' -Content {
-            ConvertTo-Json -InputObject $EventData
-        }
-    }
+    param($depth = 2)
+    Show-UDObject -InputObject $EventData -depth $depth
 }
 
-function Reset-UDPage { 
+function Reset-UDPage {
     <#
     .SYNOPSIS
     Reloads the current page.
-    
+
     .DESCRIPTION
     Reloads the current page. This uses JavaScript directly.
     #>
     Invoke-UDJavaScript "window.location.reload()"
 }
 
-
 function Show-UDObject {
     <#
     .SYNOPSIS
-    Shows an object's properties in a modal.
-    
+    Displays an object in a modal dialog with syntax highlighting and copy functionality.
+
     .DESCRIPTION
-    Shows an object's properties in a modal.
-    
+    The Show-UDObject function displays an object in a modal dialog with syntax highlighting and copy functionality. It takes an input object and optional depth parameter to control the depth of the object's properties that will be displayed.
+
     .PARAMETER InputObject
-    The object to show.
-    
+    The input object to be displayed in the modal dialog.
+
+    .PARAMETER Depth
+    The maximum depth of the object's properties that will be displayed. Default value is 20.
+
     .EXAMPLE
-    $EventData | Show-UDObject # removes the array data
-    Show-UDObject -InputObject $eventData # better way to view
+    $myObject = Get-MyObject
+    Show-UDObject -InputObject $myObject -Depth 10
+
+    This example retrieves an object using the Get-MyObject function and displays it in a modal dialog with a maximum depth of 10.
     #>
     param(
         [Parameter(ValueFromPipeline, Mandatory)]
-        $InputObject
+        $InputObject,
+        $depth = 20
     )
 
     process {
-        # Show-UDModal {
-        #     $Data = @()
-        #     $InputObject | Get-Member -MemberType Property | ForEach-Object {
-        #         $Data += [PSCustomObject]@{
-        #             Key   = $_.Name
-        #             Value = $InputObject."$($_.Name)"
-        #         } 
-        #     }
-
-        #     New-UDTable -Data $Data
-        # } -MaxWidth 'xl' -FullWidth
         Show-UDModal -Header {
             New-UDTypography -Text $($inputObject.gettype()) -Variant h4
         } -Content {
-            # New-UDTypography -Text "Type: $($eventdata.gettype())"
-            New-UDElement -Tag 'pre' -Content {
-                ConvertTo-Json -InputObject $inputObject
+            New-UDDynamic -LoadingComponent { New-UDProgress } -Content {
+                New-UDSyntaxHighlighter -Code (ConvertTo-Json -InputObject $inputObject -Depth $depth) -Language json
             }
+            New-UDButton -Text "Copy" -Icon Copy -OnClick { Set-UDClipboard -Data (ConvertTo-Json -InputObject $inputObject -Depth $depth) }
         }
     }
 }
@@ -171,7 +230,7 @@ function Get-UDCache {
     <#
     .SYNOPSIS
     Returns all items in the $Cache: scope.
-    
+
     .DESCRIPTION
     Returns all items in the $Cache: scope.
     #>
@@ -182,13 +241,13 @@ function Show-UDVariable {
     <#
     .SYNOPSIS
     Shows variables and their values in a modal.
-    
+
     .DESCRIPTION
     Shows variables and their values in a modal.
-    
+
     .PARAMETER Name
     A name. If not specified, all variables are returned.
-    
+
     .EXAMPLE
     Show-UDVariable -Name 'EventData'
     #>
@@ -196,7 +255,7 @@ function Show-UDVariable {
 
     Show-UDModal -Content {
         New-UDDynamic -Content {
-            $Variables = Get-Variable -Name "*$Name"  
+            $Variables = Get-Variable -Name "*$Name"
 
             New-UDTable -Title 'Variables' -Icon (New-UDIcon -Icon 'SquareRootVariable') -Data $Variables -Columns @(
                 New-UDTableColumn -Property Name -ShowFilter
@@ -218,105 +277,182 @@ function Show-UDVariable {
 function Show-UDThemeColorViewer {
     <#
     .SYNOPSIS
-    Shows all the theme colors in a modal.
-    
+    Displays a theme color viewer for Universal Dashboard.
+
     .DESCRIPTION
-    Shows all the theme colors in a modal.
+    The Show-UDThemeColorViewer function displays a modal window that allows users to view and set different themes and their corresponding colors for Universal Dashboard. It provides options to set the default theme to either light or dark mode.
+
+    .PARAMETER Filter
+    Specifies an array of theme names to filter and display in the theme color viewer. Only the specified themes will be shown. If not specified, all available themes will be displayed.
+
+    .PARAMETER defaultTheme
+    Specifies the default theme to be set when the "Set Default - Light" or "Set Default - Dark" buttons are clicked. The default value is 'MaterialDesign'.
+
+    .EXAMPLE
+    Show-UDThemeColorViewer -Filter 'MaterialDesign', 'Desert', 'DoomOne' -defaultTheme 'Desert'
+    Displays the theme color viewer with the specified themes filtered and sets the default theme to 'Desert'.
+
+    .EXAMPLE
+    Show-UDThemeColorViewer
+    Displays the theme color viewer with all available themes and sets the default theme to 'MaterialDesign'.
     #>
+    [cmdletbinding()]
+    param(
+        [string[]]$Filter = $null,
+        $defaultTheme = 'MaterialDesign'
+    )
     Show-UDModal -Header {
-        New-UDTypography -Variant h3 -Content {
-            New-UDIcon -Icon  Images
-            "Themes"
+        New-UDStack -Direction row -Children {
+            New-UDTypography -Variant h3 -Content {
+                New-UDIcon -Icon  Images
+                " Themes"
+            }
+            New-UDHtml -Markup "&nbsp;&nbsp;"
+            New-UDButton -Text "Set Default - Light" -OnClick {
+                Set-UDTheme -Theme (Get-UDTheme -Name $defaultTheme)
+            }
+            New-UDButton -Text "Set Default - Dark" -Color secondary -OnClick {
+                Set-UDTheme -Theme (Get-UDTheme -Name $defaultTheme) -Variant dark
+            }
         }
     } -Content {
         New-UDDynamic -Content {
             New-UDRow -Columns {
-                Get-UDTheme | ForEach-Object {
+                $themes = @()
+                if ($filter) {
+                    $themes += 'MaterialDesign'
+                    $themes += $filter | Sort-Object
+                }
+                else {
+                    $themes = Get-UDTheme
+                    $themes += 'MaterialDesign'
+                    $themes = $themes | Where-Object { $_ -ne 'Cobalt Neon' -and $_ -ne 'duckbones' -and $_ -ne 'HaX0R_BLUE' -and $_ -ne 'HaX0R_GR33N' -and $_ -ne 'HaX0R_R3D' -and $_ -ne 'Retro' -and $_ -ne 'VibrantInk' -and $_ -ne 'C64' -and $_ -ne 'QB64 Super Dark Blue' -and $_ -ne 'kanagawabones' -and $_ -ne 'Darkside' -and $_ -ne 'Broadcast' -and $_ -ne 'Atom' -and $_ -ne 'primary' }  | Sort-Object
+                }
+                $themes | ForEach-Object {
                     New-UDColumn -SmallSize 4 -Content {
-                        $Theme = Get-UDTheme -Name $_
+                        try {
+                            $themeName = $_
+                            $Theme = Get-UDTheme -Name $themeName -ErrorAction SilentlyContinue
 
-                        New-UDStack -Direction row -Content {
-                            New-UDCard -Title "$_ - Light" -Content {
-                                New-UDElement -Content {
-                                    "Background"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.light.palette.text.primary
-                                        backgroundColor = $Theme.light.palette.background.default
-                                    }
-                                }  -Tag 'div'
+                            New-UDStack -Direction row -Content {
 
-                                New-UDElement -Content {
-                                    "Primary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.light.palette.text.primary
-                                        backgroundColor = $Theme.light.palette.primary.main
+                                New-UDCard -Title "$_ - Light" -Content {
+                                    New-UDButton -Text "Set $_" -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant light
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
                                     }
-                                }  -Tag 'div'
+                                    New-UDButton -Text "Set $_" -Color secondary -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant light
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
+                                    }
+                                    New-UDElement -Content {
+                                        "Background"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.light.palette.text.primary
+                                            backgroundColor = $Theme.light.overrides.MuiDrawer.paper.backgroundColor
+                                        }
+                                    }  -Tag 'div'
 
-                                New-UDElement -Content {
-                                    "Secondary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.light.palette.text.primary
-                                        backgroundColor = $Theme.light.palette.secondary.main
+                                    New-UDElement -Content {
+                                        "Primary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.light.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.light.palette.primary.main
+                                        }
+                                    }  -Tag 'div'
+
+                                    New-UDElement -Content {
+                                        "Secondary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.light.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.light.palette.secondary.main
+                                        }
+                                    } -Tag 'div'
+                                }
+
+                                New-UDCard -Title "$_ - Dark" -Content {
+                                    New-UDButton -Text "Set $_" -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant dark
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
                                     }
-                                } -Tag 'div'
+
+                                    New-UDButton -Text "Set $_" -Color secondary -OnClick {
+                                        Set-UDTheme -Theme $Theme -Variant dark
+                                        Write-Host ($Theme | ConvertTo-Json -Depth 20)
+                                    }
+
+                                    New-UDElement -Content {
+                                        "Primary Background"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.dark.palette.text.primary
+                                            backgroundColor = $Theme.dark.overrides.MuiDrawer.paper.backgroundColor
+                                        }
+                                    }  -Tag 'div'
+
+                                    New-UDElement -Content {
+                                        "Primary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.dark.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.dark.palette.primary.main
+                                        }
+                                    }  -Tag 'div'
+
+                                    New-UDElement -Content {
+                                        "Secondary Button"
+                                    } -Attributes @{
+                                        style = @{
+                                            color           = $Theme.dark.overrides.MuiButton.contained.color
+                                            backgroundColor = $Theme.dark.palette.secondary.main
+                                        }
+                                    } -Tag 'div'
+                                }
+
                             }
 
-                            New-UDCard -Title "$_ - Dark" -Content {
-                                New-UDElement -Content {
-                                    "Background"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.dark.palette.text.primary
-                                        backgroundColor = $Theme.dark.palette.background.default
-                                    }
-                                }  -Tag 'div'
-
-                                New-UDElement -Content {
-                                    "Primary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.dark.palette.text.primary
-                                        backgroundColor = $Theme.dark.palette.primary.main
-                                    }
-                                }  -Tag 'div'
-
-                                New-UDElement -Content {
-                                    "Secondary"
-                                } -Attributes @{
-                                    style = @{
-                                        color           = $Theme.dark.palette.text.primary
-                                        backgroundColor = $Theme.dark.palette.secondary.main
-                                    }
-                                } -Tag 'div'
-                            }
                         }
-
-
-
-                        # $Theme.light.palette.background.default
-                        # $Theme.light.palette.text.primary
-                        # $Theme.light.palette.primary.main
-                        # $Theme.light.palette.secondary.main
-
-                        # $Theme.dark.palette.background.default
-                        # $Theme.dark.palette.text.primary
-                        # $Theme.dark.palette.primary.main
-                        # $Theme.dark.palette.secondary.main
+                        catch {
+                            Write-Host $themeName
+                            Write-Host $_
+                        }
                     }
                 }
             }
         } -LoadingComponent {
-            New-UDSkeleton 
+            New-UDProgress
         }
 
     } -FullWidth -MaxWidth xl
 }
 
 Function ConvertTo-UDJson {
+    <#
+    .SYNOPSIS
+    Converts PowerShell objects to JSON format.
+
+    .DESCRIPTION
+    The ConvertTo-UDJson function converts PowerShell objects to JSON format. It supports various types of objects, including enums, DateTime, DateTimeOffset, Type, strings, switches, value types, collections (IList and IDictionary), and custom objects.
+
+    .PARAMETER InputObject
+    Specifies the input object to be converted to JSON. This parameter is mandatory and accepts pipeline input.
+
+    .PARAMETER Depth
+    Specifies the depth of the conversion. The default value is 2. A depth of 0 or less will only return the type name of the object.
+
+    .OUTPUTS
+    The function outputs the converted JSON representation of the input object.
+
+    .EXAMPLE
+    Convert-OutputObject -InputObject $object -Depth 2
+    Converts the $object to JSON format with a depth of 2.
+
+    .NOTES
+    This function is part of the Apps.PowerShell.Tools module.
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
@@ -326,7 +462,7 @@ Function ConvertTo-UDJson {
 
         [Parameter(Mandatory = $true)]
         [int]
-        $Depth
+        $Depth = 2
     )
 
     begin {
