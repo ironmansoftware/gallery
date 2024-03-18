@@ -53,10 +53,25 @@ function New-UDRight {
 function New-UDConfirm {
     <#
     .SYNOPSIS
-    Shows a confirm object in a modal, returns either true or false.
+    Creates a confirmation dialog in Universal Dashboard.
 
     .DESCRIPTION
-    Shows a confirm object in a modal, returns either true or false.
+    The New-UDConfirm function creates a confirmation dialog in Universal Dashboard. It displays a modal dialog with a specified text and provides "Yes" and "No" buttons for the user to confirm or cancel the action.
+
+    .PARAMETER Text
+    Specifies the text to be displayed in the confirmation dialog. The default value is "Are you sure?".
+
+    .EXAMPLE
+    PS> if(New-UDConfirm -Text "Do you want to delete this item?") {
+        # Delete the item
+    }
+
+    This example creates a confirmation dialog with the specified text "Do you want to delete this item?".
+
+    .OUTPUTS
+    System.Boolean
+    Returns $true if the user clicks "Yes" and $false if the user clicks "No".
+
     #>
     [CmdletBinding()]
     param(
@@ -65,25 +80,25 @@ function New-UDConfirm {
             ValueFromPipelineByPropertyName = $true)]
         [string]$Text = 'Are you sure?'
     )
-    $Session:Result = $null
+    $Page:Result = $null
     Show-UDModal -Content {
         New-UDTypography -Text $Text
     } -Footer {
         New-UDButton -Text "Yes" -OnClick {
-            $Session:Result = $true
+            $Page:Result = $true
             Hide-UDModal
         } -Style @{"border-radius" = "4px" }
 
         New-UDButton -Text "No" -OnClick {
-            $Session:Result = $false
+            $Page:Result = $false
             Hide-UDModal
         } -Style @{"border-radius" = "4px" }
 
     } -Persistent
-    while ($Session:Result -eq $null) {
+    while ($null -eq $Page:Result) {
         Start-Sleep -Milliseconds 100
     }
-    return $Session:Result
+    return $Page:Result
 }
 
 function New-UDLineBreak {
