@@ -55,7 +55,7 @@ Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherChe
 To install this repository with PowerShell Universal v4, you can use the following command.
 
 ```powershell
-Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/scripts/releases/download/0.0.5/library.zip' -OutFile 'C:\downloads\modules.zip'
+Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/scripts/releases/download/0.0.5/library.zip' -OutFile 'C:\repos\scripts\modules.zip'
 Expand-Archive -Path 'C:\repos\scripts\modules.zip' -DestinationPath 'C:\repos\scripts\modules'
 Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'C:\repos\scripts\modules'
 ```
