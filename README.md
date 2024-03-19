@@ -2,13 +2,17 @@
 
 Public library of scripts maintained by Ironman Software.
 
-![](https://img.shields.io/badge/6-modules-blue) ![](https://img.shields.io/badge/14-functions-green) ![](https://img.shields.io/badge/2-apps-yellow)
+![](https://img.shields.io/badge/9-modules-blue) ![](https://img.shields.io/badge/24-functions-green) ![](https://img.shields.io/badge/4-apps-yellow)
 
 ## What is this repository for?
 
 This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5.
 
 ## Categories
+
+### [Active Directory](/ActiveDirectory)
+
+Contains scripts that are specific to Active Directory.
 
 ### [Apps](/Apps)
 
@@ -23,6 +27,17 @@ Contains scripts that can be used to send notifications like email and chat apps
 Contains scripts that are specific to Windows environments.
 
 ## Usage
+
+### PowerShell 
+
+You can use this repository outside of PowerShell Universal by installing the release to your local machine. PowerShell Universal uses PSResourceGet. You will need to install this module.
+
+```powershell
+Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
+Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/scripts/releases/download/0.0.5/library.zip' -OutFile 'C:\downloads\modules.zip'
+Expand-Archive -Path 'C:\repos\scripts\modules.zip' -DestinationPath 'C:\repos\scripts\modules'
+Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'C:\repos\scripts\modules'
+```
 
 ### PowerShell Universal v5
 

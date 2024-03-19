@@ -1,0 +1,1 @@
+New-PSUApp -Name 'Active Directory' -BaseUrl '/active-directory' -Module 'Apps.PowerShell.ActiveDirectory' -Command 'New-UDActiveDirectoryApp' -Authenticated -Role @("Administrator", "AD Admin", "AD Users", "AD Groups")
