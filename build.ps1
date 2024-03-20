@@ -1,7 +1,8 @@
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
 
-Remove-Item -Path "$PSScriptRoot/output/*.nupkg" -Force #-ErrorAction SilentlyContinue
+Remove-Item -Path "$PSScriptRoot/output/*.nupkg" -Force -ErrorAction SilentlyContinue # needed for local testing
 New-Item -Path "$PSScriptRoot/output" -ItemType Directory -Force
+
 
 Unregister-PSResourceRepository -Name PSUScriptLibrary -ErrorAction SilentlyContinue
 Register-PSResourceRepository -Name PSUScriptLibrary -Uri "$PSScriptRoot/output"
