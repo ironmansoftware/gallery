@@ -17,7 +17,7 @@ foreach($dependency in $dependencies) {
     if ($dependencyPath) {
         Write-Host "Publishing $dependencyPath"
         Publish-PSResource -Repository PSUScriptLibrary -Path $dependencyPath.FullName
-        $env:PSModulePath = $env:PSModulePath + ";$($dependencyPath.Directory)"
+        $env:PSModulePath = $env:PSModulePath + ";$(Split-Path -Path $dependencyPath.Directory -Parent)"
         write-host ($env:PSModulePath -split ';')
     }
 }
