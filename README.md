@@ -2,7 +2,7 @@
 
 Public library of scripts maintained by Ironman Software.
 
-![](https://img.shields.io/badge/12-modules-blue) ![](https://img.shields.io/badge/29-functions-green) ![](https://img.shields.io/badge/5-apps-yellow)
+![](https://img.shields.io/badge/13-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/5-apps-yellow)
 
 ## What is this repository for?
 
@@ -21,6 +21,10 @@ Contains full Blazor and PowerShell apps that can be run with PowerShell Univers
 ### [Notifications](/Notifications)
 
 Contains scripts that can be used to send notifications like email and chat apps.
+
+### [PowerShell](/PowerShell)
+
+Contains general purpose PowerShell scripts.
 
 ### [Universal](/Universal)
 
