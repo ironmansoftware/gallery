@@ -1,0 +1,1 @@
+New-PSUScript -Module "Teams.Scripts" -Command "Send-PSUTeamsNotification"

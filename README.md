@@ -22,6 +22,10 @@ Contains full Blazor and PowerShell apps that can be run with PowerShell Univers
 
 Contains scripts that can be used to send notifications like email and chat apps.
 
+### [Universal](/Universal)
+
+Contains scripts that are specific to PowerShell Universal.
+
 ### [Windows](/Windows)
 
 Contains scripts that are specific to Windows environments.
