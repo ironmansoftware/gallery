@@ -8,10 +8,10 @@ Function Build-RequiredModuleFiles {
             $Data = Import-PowerShellDataFile $_.FullName
 
             # Get the RequiredModules
-            $RequiredModules += $data.RequiredModules
+            $RequiredModules = $RequiredModules + $data.RequiredModules
         }
 
-        If ($RequiredModules) {
+        If ($RequiredModules.Length -gt 0) {
 
             Set-Location '/home/runner/.local/share/powershell/Modules'
 
