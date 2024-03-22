@@ -9,6 +9,7 @@ Function Build-RequiredModuleFiles {
 
             # Get the RequiredModules
             $RequiredModules = $RequiredModules + $data.RequiredModules
+            Write-Host "Found required modules: $($data.RequiredModules))"
         }
 
         If ($RequiredModules.Length -gt 0) {
