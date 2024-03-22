@@ -8,8 +8,10 @@ Function Build-RequiredModuleFiles {
             $Data = Import-PowerShellDataFile $_.FullName
 
             # Get the RequiredModules
-            $RequiredModules = $RequiredModules + $data.RequiredModules
-            Write-Host "Found required modules: $($data.RequiredModules))"
+            if ($data.RequiredModules) {
+                $RequiredModules = $RequiredModules + $data.RequiredModules
+                Write-Host "Found required modules: $($data.RequiredModules))"
+            }
         }
 
         If ($RequiredModules.Length -gt 0) {
