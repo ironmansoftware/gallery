@@ -1,12 +1,15 @@
 Function Build-RequiredModuleFiles {
 
     if (Test-Path -Path "/home/runner/.local/share/powershell/Modules") {
-        # Get .psd1 data
-        $Data = Import-PowerShellDataFile "$PSScriptRoot\**\*.psd1"
+        [array]$RequiredModules = @()
+        Get-ChildItem "$PSScriptRoot/**/*.psd1" -Recurse | ForEach-Object {
 
-        # Get the RequiredModules
-        [array]$RequiredModules = $data.RequiredModules
+            # Get .psd1 data
+            $Data = Import-PowerShellDataFile $_.FullName
 
+            # Get the RequiredModules
+            $RequiredModules += $data.RequiredModules
+        }
 
         If ($RequiredModules) {
 
