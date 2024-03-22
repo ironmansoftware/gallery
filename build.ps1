@@ -18,12 +18,11 @@ Function Build-RequiredModuleFiles {
 
             # Create the required module manifests
             ForEach ($module in $requiredModules) {
-                $moduleName = $module.ModuleName
-                New-Item $moduleName -type Directory
-                Write-Output "Creating empty .psd1 file for module $modulename at $((Get-Location).Path)\$moduleName\$moduleName.psd1"
+                New-Item $module -type Directory
+                Write-Output "Creating empty .psd1 file for module $module at $((Get-Location).Path)\$module\$module.psd1"
 
                 # Create manifest
-                New-Item ".\$moduleName\$moduleName.psd1"
+                New-Item ".\$module\$module.psd1"
             }
         }
     }
