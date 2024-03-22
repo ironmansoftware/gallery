@@ -27,9 +27,10 @@ Function Build-RequiredModuleFiles {
                 New-Item ".\$module\$module.psd1"
             }
         }
+        $RequiredModules
     }
 }
-Build-RequiredModuleFiles
+$dependencies = Build-RequiredModuleFiles
 
 Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
 
@@ -42,7 +43,7 @@ Register-PSResourceRepository -Name PSUScriptLibrary -Uri "$PSScriptRoot/output"
 
 #get a list of dependencies
 # TODO: handle dependencies that we do not own, eg, install-module ImportExcel
-$dependencies = @('ActiveDirectory.Scripts')
+# $dependencies = @('ActiveDirectory.Scripts')
 
 # Publish Dependencies First
 foreach ($dependency in $dependencies) {
