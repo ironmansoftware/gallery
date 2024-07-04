@@ -1,0 +1,1 @@
+$Variables["Repositories"] = Get-PSResourceRepository 

@@ -1,0 +1,1 @@
+$Variables["HostProcesses"] = Get-PSHostProcessInfo
