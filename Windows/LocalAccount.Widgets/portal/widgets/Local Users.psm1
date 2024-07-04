@@ -1,0 +1,1 @@
+$Variables["LocalUsers"] = Get-LocalUser
