@@ -2,7 +2,7 @@
 
 Public library of scripts maintained by Ironman Software.
 
-![](https://img.shields.io/badge/14-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/5-apps-yellow)  ![](https://img.shields.io/badge/8-widgets-orange)
+![](https://img.shields.io/badge/14-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/5-apps-yellow)  ![](https://img.shields.io/badge/10-widgets-orange)
 
 ## What is this repository for?
 
@@ -26,7 +26,7 @@ Contains scripts that can be used to send notifications like email and chat apps
 
 Contains general purpose PowerShell scripts and widgets.
 
-### [System](/Systems)
+### [System](/System)
 
 Contains scripts and widgets that return information about the system.
 
