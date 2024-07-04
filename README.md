@@ -113,7 +113,7 @@ The following tags are used to categorize modules in PowerShell Universal
 
 - script - Contains a script resource
 - powershell-app - Contains a PowerShell App
-- blazor-app - Contains a Blazor App
+- powershell-widget - Contains one or more Portal Widgets
 
 ### Documentation
 
