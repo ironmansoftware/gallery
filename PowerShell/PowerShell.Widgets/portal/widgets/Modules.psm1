@@ -1,0 +1,1 @@
+$Variables["Modules"] = Get-Module -ListAvailable 

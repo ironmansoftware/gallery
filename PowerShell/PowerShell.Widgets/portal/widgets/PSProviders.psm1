@@ -1,0 +1,1 @@
+$Variables["Providers"] = Get-PSProvider

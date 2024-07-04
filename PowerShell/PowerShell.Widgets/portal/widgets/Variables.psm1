@@ -1,0 +1,1 @@
+$Variables["Variables"] = Get-Variable 

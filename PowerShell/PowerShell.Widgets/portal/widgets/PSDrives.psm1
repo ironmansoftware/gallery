@@ -1,0 +1,1 @@
+$Variables["Drives"] = Get-PSDrive 
