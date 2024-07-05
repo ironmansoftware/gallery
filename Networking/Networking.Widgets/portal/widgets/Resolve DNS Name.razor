@@ -1,0 +1,15 @@
+<Content>
+    <Row>
+        <Form Model="$Model" OnFinish="ResolveDns">
+            <FormItem>
+                <Input bind-Value="$Model.HostName" />
+            </FormItem>
+            <FormItem>
+                <Button HtmlType="Submit">Resolve</Button>
+            </FormItem>
+        </Form>
+    </Row>
+    <Row>
+        <pre>$Resolved</pre>
+    </Row>
+</Content>
