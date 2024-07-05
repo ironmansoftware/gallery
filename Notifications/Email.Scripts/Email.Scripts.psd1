@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'Send-PSUEmail'
+    FunctionsToExport = @('Send-PSUEmail')
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     # CmdletsToExport   = '*'
@@ -104,7 +104,7 @@
             ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Notifications/Email.Scripts'
 
             # A URL to an icon representing this module.
-            IconUri     = 'https://github.com/ironmansoftware/scripts/Notifications/Email.Scripts/logo.png'
+            IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''

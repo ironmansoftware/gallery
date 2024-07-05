@@ -117,7 +117,7 @@
             ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Apps/PowerShell/Tools'
 
             # A URL to an icon representing this module.
-            # IconUri = ''
+            IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/app.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''

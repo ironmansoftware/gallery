@@ -104,7 +104,7 @@
             ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/System/System.Widgets'
 
             # A URL to an icon representing this module.
-            # IconUri    = ''
+            IconUri    = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/widget.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''
