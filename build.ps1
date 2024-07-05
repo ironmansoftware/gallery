@@ -16,6 +16,8 @@ Function Build-RequiredModuleFiles {
             # Get .psd1 data
             $Data = Import-PowerShellDataFile $_.FullName
 
+            $Readme = Get-Content "$($_.Directory)/README.md" -ErrorAction SilentlyContinue -Raw
+
             # Get the RequiredModules
             if ($data.RequiredModules) {
                 $RequiredModules = $RequiredModules + $data.RequiredModules
@@ -31,6 +33,7 @@ Function Build-RequiredModuleFiles {
                 Functions   = $Data.FunctionsToExport
                 DisplayName = $Data.PrivateData.PSData.DisplayName
                 Widgets     = @()
+                Readme      = $Readme
             }
 
             $ModuleDirectory = [IO.Path]::GetDirectoryName($_.FullName)
