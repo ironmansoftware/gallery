@@ -106,7 +106,7 @@
             ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/Apps/PowerShell/NetworkUtilities'
 
             # A URL to an icon representing this module.
-            # IconUri    = 'https://www.ironmansoftware.com/img/ps-icon.svg'
+            IconUri    = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/app.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''

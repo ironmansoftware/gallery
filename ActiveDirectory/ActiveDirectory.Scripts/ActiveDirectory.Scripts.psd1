@@ -116,7 +116,7 @@
             ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/ActiveDirectory/ActiveDirectory.Scripts'
 
             # A URL to an icon representing this module.
-            # IconUri    = ''
+            IconUri    = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''
