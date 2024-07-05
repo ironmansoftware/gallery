@@ -88,16 +88,18 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @('powershell-widget')
+            Tags        = @('powershell-widget')
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/ironmansoftware/scripts/tree/main/LICENSE'
+            LicenseUri  = 'https://github.com/ironmansoftware/scripts/tree/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/Windows/LocalAccount.Widgets'
+            ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Windows/LocalAccount.Widgets'
 
             # A URL to an icon representing this module.
-            IconUri    = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/widget.png'
+            IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/widget.png'
+
+            DisplayName = 'Local Account Widgets'
 
             # ReleaseNotes of this module
             # ReleaseNotes = ''

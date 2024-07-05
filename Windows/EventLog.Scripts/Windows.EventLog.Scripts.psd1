@@ -103,6 +103,8 @@
             # A URL to the main website for this project.
             ProjectUri  = 'https://github.com/ironmansoftware/scripts/blob/main/Windows/EventLog.Scripts'
 
+            DisplayName = 'Windows Event Log Scripts'
+
             # A URL to an icon representing this module.
             # IconUri = ''
 
@@ -117,8 +119,6 @@
 
             # External dependent modules of this module
             # ExternalModuleDependencies = @()
-
-            DisplayName = "Windows Event Log Scripts"
 
         } # End of PSData hashtable
 
