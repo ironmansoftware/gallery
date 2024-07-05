@@ -1,4 +1,8 @@
-param($UserModulePath = "/home/runner/.local/share/powershell/Modules")
+param(
+    $UserModulePath = "/home/runner/.local/share/powershell/Modules", 
+    $ModuleUrl = "https://www.ironmansoftware.com/api/v1/module/$ENV:ModuleKey",
+    [Switch]$UpdateModuleDirectory
+)
 
 Function Build-RequiredModuleFiles {
 
@@ -59,9 +63,11 @@ Function Build-RequiredModuleFiles {
         }
         $RequiredModules
 
-        $ModuleManifest | ConvertTo-Json -Depth 10 | Set-Content "$PSScriptRoot/output/Modules.json"
-        Invoke-WebRequest -InFile "$PSScriptRoot/output/Modules.json" -Uri "https://www.ironmansoftware.com/modules/update/$ENV:ModuleKey" -Method "POST" -ContentType "application/json" -ErrorAction Continue  | Out-Null
-        Remove-Item "$PSScriptRoot/output/Modules.json"
+        if ($UpdateModuleDirectory -or $ENV:UPDATE_MODULE_DIRECTORY -eq 'true') {
+            $ModuleManifest | ConvertTo-Json -Depth 10 | Set-Content "$PSScriptRoot/output/Modules.json"
+            Invoke-WebRequest -InFile "$PSScriptRoot/output/Modules.json" -Uri $ModuleUrl -Method "POST" -ContentType "application/json" -ErrorAction Continue  | Out-Null
+            Remove-Item "$PSScriptRoot/output/Modules.json"
+        }
     }
 }
 
