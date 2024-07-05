@@ -104,7 +104,7 @@
             ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Modules/LocalAccount.Scripts'
 
             # A URL to an icon representing this module.
-            IconUri     = 'https://github.com/ironmansoftware/scripts/Modules/LocalAccount.Scripts/logo.png'
+            IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
 
             DisplayName = 'Local Account Scripts'
 

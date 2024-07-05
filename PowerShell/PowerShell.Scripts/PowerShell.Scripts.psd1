@@ -107,6 +107,8 @@
             # A URL to the main website for this project.
             ProjectUri  = 'https://github.com/ironmansoftware/scripts/blob/main/PowerShell/PowerShell.Scripts'
 
+            IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
+
             # A URL to an icon representing this module.
             # IconUri = ''
 

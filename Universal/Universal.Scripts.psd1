@@ -105,6 +105,8 @@
 
             DisplayName = 'Universal Scripts'
 
+            IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
+
             # A URL to an icon representing this module.
             # IconUri = ''
 
