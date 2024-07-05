@@ -60,7 +60,7 @@ Function Build-RequiredModuleFiles {
         $RequiredModules
 
         $ModuleManifest | ConvertTo-Json -Depth 10 | Set-Content "$PSScriptRoot/output/Modules.json"
-        Invoke-WebRequest -InFile "$PSScriptRoot/output/Modules.json" -Uri "https://www.ironmansoftware.com/modules/update" -Method "POST" -ContentType "application/json" -ErrorAction Continue  | Out-Null
+        Invoke-WebRequest -InFile "$PSScriptRoot/output/Modules.json" -Uri "https://www.ironmansoftware.com/modules/update/$ENV:ModuleKey" -Method "POST" -ContentType "application/json" -ErrorAction Continue  | Out-Null
         Remove-Item "$PSScriptRoot/output/Modules.json"
     }
 }
