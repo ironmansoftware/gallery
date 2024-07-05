@@ -34,7 +34,7 @@ Function Build-RequiredModuleFiles {
 
             $ModuleDirectory = [IO.Path]::GetDirectoryName($_.FullName)
 
-            Get-ChildItem $ModuleDirectory\**\portalWidgets.psd1 -Recurse | ForEach-Object {
+            Get-ChildItem $ModuleDirectory/**/portalWidgets.psd1 -Recurse | ForEach-Object {
                 $ModuleInformation.Widgets += (Import-PowerShellDataFile $_.FullName).Items
             }
 
