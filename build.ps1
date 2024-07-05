@@ -64,12 +64,13 @@ Function Build-RequiredModuleFiles {
         Remove-Item "$PSScriptRoot/output/Modules.json"
     }
 }
-$dependencies = Build-RequiredModuleFiles
-
-Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
 
 Remove-Item -Path "$PSScriptRoot/output/*.nupkg" -Force -ErrorAction SilentlyContinue # needed for local testing
 New-Item -Path "$PSScriptRoot/output" -ItemType Directory -Force
+
+$dependencies = Build-RequiredModuleFiles
+
+Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -SkipPublisherCheck -AllowClobber -Scope CurrentUser -ErrorAction SilentlyContinue
 
 Unregister-PSResourceRepository -Name PSUScriptLibrary -ErrorAction SilentlyContinue
 Register-PSResourceRepository -Name PSUScriptLibrary -Uri "$PSScriptRoot/output"
