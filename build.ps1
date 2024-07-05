@@ -27,7 +27,7 @@ Function Build-RequiredModuleFiles {
                 Version     = $Data.ModuleVersion
                 Description = $Data.Description
                 Tags        = $Data.PrivateData.PSData.Tags
-                Icon        = $Data.IconUri
+                Icon        = $Data.PrivateData.PSData.IconUri
                 Functions   = $Data.FunctionsToExport
                 Widgets     = @()
             }
