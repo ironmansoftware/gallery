@@ -95,13 +95,15 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @('security')
+            Tags        = @('security')
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/ironmansoftware/scripts/tree/main/LICENSE'
+            LicenseUri  = 'https://github.com/ironmansoftware/scripts/tree/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/ActiveDirectory/ActiveDirectory.Security'
+            ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/ActiveDirectory/ActiveDirectory.Security'
+
+            DisplayName = 'Active Directory Security Module'
 
             # A URL to an icon representing this module.
             # IconUri = ''
