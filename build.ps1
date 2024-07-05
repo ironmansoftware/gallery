@@ -1,6 +1,6 @@
 param(
     $UserModulePath = "/home/runner/.local/share/powershell/Modules", 
-    $ModuleUrl = "https://www.ironmansoftware.com/api/v1/module/$ENV:ModuleKey",
+    $ModuleUrl = "https://www.ironmansoftware.com/api/v1/module/$ENV:MODULEKEY",
     [Switch]$UpdateModuleDirectory
 )
 
