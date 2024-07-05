@@ -18,7 +18,7 @@
         @{
             Name        = 'PSProviders'
             Description = 'Displays a table of registered PowerShell providers.'
-            Image       = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/PowerShell/PowerShell.Widgets/PSProviders.png'
+            Image       = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/PowerShell/PowerShell.Widgets/Providers.png'
         }
         @{
             Name        = 'Variables'
