@@ -37,10 +37,6 @@ Function Build-RequiredModuleFiles {
             $ModuleManifest.Modules += $ModuleInformation
         }
 
-        $ModuleManifest | ConvertTo-Json -Depth 10 | Set-Content "$PSScriptRoot/output/Modules.json"
-        Invoke-WebRequest -InFile "$PSScriptRoot/output/Modules.json" -Uri "https://www.ironmansoftware.com/modules/update" -Method "POST" -ContentType "application/json"
-        Remove-Item "$PSScriptRoot/output/Modules.json"
-
         If ($RequiredModules.Length -gt 0) {
 
             Push-Location $UserModulePath
@@ -62,6 +58,10 @@ Function Build-RequiredModuleFiles {
             Pop-Location
         }
         $RequiredModules
+
+        $ModuleManifest | ConvertTo-Json -Depth 10 | Set-Content "$PSScriptRoot/output/Modules.json"
+        Invoke-WebRequest -InFile "$PSScriptRoot/output/Modules.json" -Uri "https://www.ironmansoftware.com/modules/update" -Method "POST" -ContentType "application/json" | Out-Null
+        Remove-Item "$PSScriptRoot/output/Modules.json"
     }
 }
 $dependencies = Build-RequiredModuleFiles
