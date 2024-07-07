@@ -97,7 +97,7 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags        = @('powershell-app', 'network')
+            Tags        = @('app', 'network')
 
             # A URL to the license for this module.
             LicenseUri  = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
