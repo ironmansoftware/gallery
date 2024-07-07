@@ -1,6 +1,6 @@
 function Initialize-PSUWidget {
     param(
-        $AppName = "PowerShell Universal Documentation"
+        $AppName = "PowerShell Universal Apps Documentation"
     )
 
     $App = Get-PSUApp -Name $AppName
