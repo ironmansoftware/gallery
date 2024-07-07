@@ -111,9 +111,11 @@ Tags, images and description of your module will appear directly in the platform
 
 The following tags are used to categorize modules in PowerShell Universal
 
-- script - Contains a script resource
-- powershell-app - Contains a PowerShell App
-- powershell-widget - Contains one or more Portal Widgets
+- `script` - Contains a script resource
+- `app` - Contains an App
+- `widget` - Contains one or more Portal Widgets
+- `api` - Contains API endpoints
+- `trigger` - Contains triggers
 
 ### Documentation
 
