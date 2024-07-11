@@ -2,7 +2,7 @@
 
 Public library of scripts maintained by Ironman Software.
 
-![](https://img.shields.io/badge/17-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/3-apps-yellow)  ![](https://img.shields.io/badge/12-widgets-orange)
+![](https://img.shields.io/badge/18-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/3-apps-yellow)  ![](https://img.shields.io/badge/14-widgets-orange)
 
 ## What is this repository for?
 
