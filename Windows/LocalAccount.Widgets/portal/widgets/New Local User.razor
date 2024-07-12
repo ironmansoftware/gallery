@@ -1,0 +1,16 @@
+<Row>
+    <Form Model="$Model" OnFinish="Submit">
+        <FormItem Label="User Name">
+            <Input bind-Value="$Model.UserName" />
+        </FormItem>
+        <FormItem Label="Password">
+            <InputPassword bind-Value="$Model.Password" />
+        </FormItem>
+        <FormItem Label="Confirm Password">
+            <InputPassword bind-Value="$Model.ConfirmPassword" />
+        </FormItem>
+        <FormItem>
+            <Button HtmlType="Submit" Disabled="$Disabled">Create User</Button>
+        </FormItem>
+    </Form>
+</Row>
