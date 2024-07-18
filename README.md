@@ -2,7 +2,7 @@
 
 Public library of scripts maintained by Ironman Software.
 
-![](https://img.shields.io/badge/18-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/3-apps-yellow)  ![](https://img.shields.io/badge/15-widgets-orange)
+![](https://img.shields.io/badge/18-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/3-apps-yellow)  ![](https://img.shields.io/badge/16-widgets-orange)
 
 ## What is this repository for?
 
@@ -12,7 +12,7 @@ This repository is a collection of scripts that are maintained by Ironman Softwa
 
 ### [Active Directory](/ActiveDirectory)
 
-Contains scripts that are specific to Active Directory.
+Contains scripts and widgets that are specific to Active Directory.
 
 ### [Apps](/Apps)
 
