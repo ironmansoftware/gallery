@@ -1,0 +1,19 @@
+<Content>
+    <Row>
+        <Form Model="$Model" OnFinish="Find-PSUADObject">
+            <FormItem>
+                <Input bind-Value="$Model.SearchString" Placeholder="Search" />
+            </FormItem>
+            <FormItem>
+                <Button HtmlType="Submit">Search</Button>
+            </FormItem>
+        </Form>
+    </Row>
+    <Row>
+        <Table Title="Active Directory Objects" DataSource="$Result">
+            <PropertyColumn Property="Name" Title="Name" Sortable="true" />
+            <PropertyColumn Property="DistinguishedName" Title="Distinguished Name" Sortable="true" />
+            <PropertyColumn Property="ObjectClass" Title="ObjectClass" Sortable="true" />
+        </Table>
+    </Row>
+</Content>
