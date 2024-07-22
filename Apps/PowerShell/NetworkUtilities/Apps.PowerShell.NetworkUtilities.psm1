@@ -34,19 +34,6 @@ function New-NetworkUtilityApp {
                     }
                 }
             }
-            New-UDTab -Text 'Network Scanner' -Content {
-                New-UDForm -Children {
-                    New-UDTextbox -Label "Start IP Address" -Id 'scanStartIp' -Value '192.168.0.1'
-                    New-UDTextbox -Label "End IP Address" -Id 'scanEndIp' -Value '192.168.0.255'
-                } -OnSubmit {
-                    $Session:NetworkScan = & "$AppRoot\IPv4NetworkScan.ps1" -StartIPv4Address $EventData.scanStartIp -EndIPv4Address $EventData.scanEndIp -IncludeInactive
-                    Sync-UDElement -Id 'netScanOutput'
-                } 
-
-                New-UDDynamic -Id 'netScanOutput' -Content {
-                    New-UDTable -Data $Session:NetworkScan -ShowPagination -ShowExport
-                }
-            }
             New-UDTab -Text 'Speed Test' -Content {
                 New-UDButton -Text 'Run Speed Test' -OnClick {
                     Write-Progress -Activity "Running speed test..."
