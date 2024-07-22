@@ -20,12 +20,6 @@ Resolve a host name to an IP address.
 
 ![](./resolve.png)
 
-### Network Scan
-
-Scan a network for hosts.
-
-![](./scan.png)
-
 ### Speed Test 
 
 Test the speed of your internet connection with Speedtest.net
