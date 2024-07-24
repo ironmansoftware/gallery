@@ -2,7 +2,7 @@ class ADQuery {
     [string]$Query = '(&(objectClass=user)(objectCategory=user))'
 }
 
-$Variables["Module"] = [ADQuery]::new()
+$Variables["Model"] = [ADQuery]::new()
 $Variables["Results"] = @()
 $Variables["ObjectCount"] = 0
 
