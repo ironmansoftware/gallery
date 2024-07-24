@@ -1,0 +1,8 @@
+<Table DataSource="$Users" Title="Users">
+    <PropertyColumn Property="Name" Title="Name"></PropertyColumn>
+    <PropertyColumn Property="DistinguishedName" Title="Distinguished Name"></PropertyColumn>
+    <PropertyColumn Property="Enabled" Title="Enabled">
+        <Checkbox Value="$Context.Enabled" Disabled="true" />
+    </PropertyColumn>
+    <PropertyColumn Property="SID" Title="SID"></PropertyColumn>
+</Table>

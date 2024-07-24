@@ -1,0 +1,1 @@
+$Variables["Groups"] = Get-ADGroup -Filter *

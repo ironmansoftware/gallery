@@ -1,0 +1,1 @@
+$Variables["Users"] = Get-ADUser -Filter *
