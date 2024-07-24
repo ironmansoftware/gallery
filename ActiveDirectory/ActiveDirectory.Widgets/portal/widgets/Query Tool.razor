@@ -1,0 +1,23 @@
+<Row>
+    <Row style="width: 100%">
+        <Form Model="$Model" OnFinish="OnSearch">
+            <FormItem>
+                <Input bind-Value="$Model.Query" Placeholder="LDAP Query" Required="true" />
+            </FormItem>
+            <FormItem>
+                <Button HtmlType="Submit">Search</Button>
+            </FormItem>
+        </Form>
+    </Row>
+    <Row Style="width: 100%">
+        <Text>Total Number of Objects:</Text>
+        <Text>$ObjectCount</Text>
+    </Row>
+    <Row Style="width: 100%">
+        <Table DataSource="$Results" Title="Results">
+            <PropertyColumn Property="Name" Title="Name"></PropertyColumn>
+            <PropertyColumn Property="ClassName" Title="Class"></PropertyColumn>
+            <PropertyColumn Property="DistinguishedName" Title="Distinguished Name"></PropertyColumn>
+        </Table>
+    </Row>
+</Row>
