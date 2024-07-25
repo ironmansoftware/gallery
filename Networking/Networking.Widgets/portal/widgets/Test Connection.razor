@@ -1,0 +1,26 @@
+<Space Direction="Vertical">
+    <SpaceItem>
+        <Card Title="Test Connection">
+            <Row Style="width: 100%">
+                <Form Model="$Model" OnFinish="Submit" LabelCol="$LabelCol" WrapperCol="$WrapperCol">
+                    <FormItem Label="Computer Name"
+                        Help="Specifies the Domain Name System (DNS) name or IP address of the target computer.">
+                        <Input bind-Value="$Model.ComputerName" />
+                    </FormItem>
+                    <FormItem Label="Trace Route"
+                        Help="Indicates that Tracert runs to test connectivity to the remote host.">
+                        <Checkbox bind-Checked="$Model.TraceRoute" />
+                    </FormItem>
+                    <FormItem>
+                        <Button HtmlType="Submit" Loading="$Testing">Test</Button>
+                    </FormItem>
+                </Form>
+            </Row>
+        </Card>
+    </SpaceItem>
+    <SpaceItem>
+        <Card Title="Output" Loading="$Loading">
+            <pre>$Output</pre>
+        </Card>
+    </SpaceItem>
+</Space>
