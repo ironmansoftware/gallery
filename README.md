@@ -8,6 +8,10 @@ Public library of scripts maintained by Ironman Software.
 
 This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5.
 
+## Support
+
+These scripts are not supported through the general Ironman Software support agreement for PowerShell Universal. Bugs and feature requests should be made through this repository. 
+
 ## Categories
 
 ### [Active Directory](/ActiveDirectory)
