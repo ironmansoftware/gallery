@@ -10,4 +10,4 @@
 } | ConvertTo-Json | Out-File "sleet.json"
 
 dotnet tool install -g sleet
-sleet push $PSScriptRoot\output
+sleet push $PSScriptRoot/output
