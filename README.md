@@ -1,12 +1,12 @@
-# Ironman Software Script Library
+# PowerShell Universal Gallery
 
-Public library of scripts maintained by Ironman Software.
+Public library of modules for PowerShell Universal.
 
 ![](https://img.shields.io/badge/18-modules-blue) ![](https://img.shields.io/badge/32-functions-green) ![](https://img.shields.io/badge/3-apps-yellow)  ![](https://img.shields.io/badge/21-widgets-orange)
 
 ## What is this repository for?
 
-This repository is a collection of scripts that are maintained by Ironman Software. This repository can be used directly with PowerShell Universal version 4 and 5.
+This repository is a collection of modules that you can use directly with PowerShell Universal. These modules provide pre-built solutions for specific platforms like Azure, Windows and Slack.
 
 ## Support
 
