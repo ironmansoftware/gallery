@@ -1,0 +1,18 @@
+name: Publish Feed
+on: 
+  workflow_dispatch:
+
+jobs:
+    build:
+      name: Build
+      runs-on: [ubuntu-latest]
+      steps:
+        - uses: actions/checkout@v3
+        - name: Build
+          run: .\build.ps1
+          shell: pwsh
+        - name: Publish
+          run: .\feed.ps1
+          shell: pwsh
+          env: 
+            StorageConnectionString: ${{ secrets.StorageConnectionString }}
