@@ -8,4 +8,4 @@ You can use the `Send-PSUSlackNotification` function to send a message to a Slac
 New-PSUTrigger -TriggerScript 'Slack.Scripts\Send-PSUSlackNotification' -EventType JobFailed
 ```
 
-![](images/notification.png)
+![Slack Notification](https://raw.githubusercontent.com/ironmansoftware/scripts/main/Notifications/Slack.Scripts/images/notification.png)
