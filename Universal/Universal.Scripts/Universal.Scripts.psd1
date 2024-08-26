@@ -12,7 +12,7 @@
     RootModule        = 'Universal.Scripts.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.0.1'
+    ModuleVersion     = '0.0.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -98,10 +98,10 @@
             Tags        = @('script')
 
             # A URL to the license for this module.
-            LicenseUri  = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
+            LicenseUri  = 'https://github.com/ironmansoftware/scripts/tree/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri  = 'https://github.com/ironmansoftware/scripts/blob/main/Universal'
+            ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Universal/Universal.Scripts'
 
             DisplayName = 'Universal Scripts'
 

@@ -9,28 +9,28 @@
 @{
 
     # Script module or binary module file associated with this manifest.
-    RootModule      = '.\Apps.PowerShell.ActiveDirectory.psm1'
+    RootModule    = '.\Apps.PowerShell.ActiveDirectory.psm1'
 
     # Version number of this module.
-    ModuleVersion   = '0.0.2'
+    ModuleVersion = '0.0.3'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
 
     # ID used to uniquely identify this module
-    GUID            = 'e4cbb7ae-3e48-487a-b12b-dba71279f3ce'
+    GUID          = 'e4cbb7ae-3e48-487a-b12b-dba71279f3ce'
 
     # Author of this module
-    Author          = 'Ironman Software'
+    Author        = 'Ironman Software'
 
     # Company or vendor of this module
-    CompanyName     = 'Ironman Software'
+    CompanyName   = 'Ironman Software'
 
     # Copyright statement for this module
-    Copyright       = '(c) Ironman Software. All rights reserved.'
+    Copyright     = '(c) Ironman Software. All rights reserved.'
 
     # Description of the functionality provided by this module
-    Description     = 'Active Directory tools built with PowerShell Universal. Reset passwords, restore deleted users, manage group membership and search for objects.'
+    Description   = 'Active Directory tools built with PowerShell Universal. Reset passwords, restore deleted users, manage group membership and search for objects.'
 
     # Minimum version of the PowerShell engine required by this module
     # PowerShellVersion = ''
@@ -51,7 +51,7 @@
     # ProcessorArchitecture = ''
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules = @('ActiveDirectory.Scripts')
+    # RequiredModules = @('ActiveDirectory.Scripts')
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @()
@@ -87,10 +87,10 @@
     # ModuleList = @()
 
     # List of all files packaged with this module
-    FileList        = @(".universal\dashboards.ps1")
+    FileList      = @(".universal\dashboards.ps1")
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-    PrivateData     = @{
+    PrivateData   = @{
 
         PSData = @{
 
