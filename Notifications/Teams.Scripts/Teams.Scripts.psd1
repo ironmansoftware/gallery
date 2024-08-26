@@ -12,7 +12,7 @@
     RootModule        = 'Teams.Scripts.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.0.1'
+    ModuleVersion     = '0.0.2'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -101,7 +101,7 @@
             LicenseUri  = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri  = 'https://github.com/ironmansoftware/scripts/blob/main/Notification/Teams.Scripts'
+            ProjectUri  = 'https://github.com/ironmansoftware/scripts/tree/main/Notifications/Teams.Scripts'
 
             # A URL to an icon representing this module.
             IconUri     = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
