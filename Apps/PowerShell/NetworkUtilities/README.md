@@ -6,25 +6,25 @@
 
 Ping a host. 
 
-![](./ping.png)
+![](https://raw.githubusercontent.com/ironmansoftware/scripts/main/Apps/PowerShell/NetworkUtilities/ping.png)
 
 ### Traceroute
 
 Run a traceroute against a host.
 
-![](./traceroute.png)
+![](https://raw.githubusercontent.com/ironmansoftware/scripts/main/Apps/PowerShell/NetworkUtilities/traceroute.png)
 
 ### Resolve
 
 Resolve a host name to an IP address.
 
-![](./resolve.png)
+![](https://raw.githubusercontent.com/ironmansoftware/scripts/main/Apps/PowerShell/NetworkUtilities/resolve.png)
 
 ### Speed Test 
 
 Test the speed of your internet connection with Speedtest.net
 
-![](./speed.png)
+![](https://raw.githubusercontent.com/ironmansoftware/scripts/main/Apps/PowerShell/NetworkUtilities/speed.png)
 
 ## Requirements
 
