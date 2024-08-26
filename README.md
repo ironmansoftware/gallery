@@ -22,6 +22,10 @@ Contains scripts and widgets that are specific to Active Directory.
 
 Contains full apps that can be run with PowerShell Universal.
 
+### [Graph](/Graph)
+
+Contains scripts that interact with the Microsoft Graph.
+
 ### [Notifications](/Notifications)
 
 Contains scripts that can be used to send notifications like email and chat apps.
