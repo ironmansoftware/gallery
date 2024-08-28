@@ -1,0 +1,1 @@
+﻿New-PSURole -Name "System API Reader" -Description "Users with this role can access the system APIs. "
