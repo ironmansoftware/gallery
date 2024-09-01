@@ -1,72 +1,106 @@
-function Send-PSUEmail {
-    <#
-    .SYNOPSIS
-    Sends emails from PowerShell.
-    
-    .DESCRIPTION
-    This function sends emails from PowerShell. It integrates with triggers. You will need to set the following variables in Platform \ Variables:
+param(
+    [Parameter(Mandatory, ParameterSetName = 'AppToken')]
+    $AppToken,
+    [Parameter(Mandatory, ParameterSetName = 'Job')]
+    $Job,
+    [Parameter(Mandatory, ParameterSetName = 'Dashboard')]
+    $Dashboard,
+    [Parameter(Mandatory, ParameterSetName = 'Endpoint')]
+    $Endpoint,
+    [Parameter(Mandatory, ParameterSetName = 'License')]
+    $License,
+    [Parameter(Mandatory, ParameterSetName = 'User')]
+    $User,
+    [Parameter(Mandatory, ParameterSetName = 'HealthCheck')]
+    $HealthCheck,
+    [Parameter()]
+    $Data
+)
 
-    - ToEmail
-    - FromEmail
-    - EmailServer
-    - EmailUser
-    - EmailPassword
+if ($PSCmdlet.ParameterSetName -eq 'Job') {
+    $Output = Get-PSUJob -Id $Job.Id | Get-PSUJobOutput | Select-Object -First 10 | ForEach-Object { "$_`r`n" }
 
-    This module requires PSHtml
-    
-    .PARAMETER Job
-    The job to send an email for. This is automatically set when the function is called from a trigger.
-    
-    #>
-    param(
-        [Parameter(Mandatory = $true, ParameterSetName = 'Job')]
-        $Job
-    )
+    $Output = [AnsiConsoleToHtml.AnsiConsole]::ToHtml($Output)
 
-    $PSHtml = Import-Module PSHtml -PassThru -ErrorAction SilentlyContinue
-
-    if (-not $PSHtml) {
-        throw "PSHtml module is not installed. Please install this module."
+    $Description = "<p>Started: $($Job.StartTime)</p>"
+    $Description += "<p>Environment: $($Job.Environment)</p>"
+    if ($Job.Schedule) {
+        $Description += "<p>Schedule: $($Job.Schedule)</p>"
     }
 
-    if ($PSCmdlet.ParameterSetName -eq 'Job') {
-        $JobId = $Job.Id
-        $Script = $Job.ScriptFullPath
-        $Message = "The job $JobId for script $Script failed."
-        $Body = "<a href='$ApiUrl/admin/automation/jobs/$JobId'>View Job</a>"
-    }
-    else {
-        # TODO: Support for other trigger types.
-    }
+    $Description += "<p>Identity: $($Job.Identity.Name)</p>"
 
-    if (-not $ToEmail) {
-        throw "ToEmail variable is not set. Please set this in Platform \ Variables."
-    }
-
-    if (-not $FromEmail) {
-        throw "FromEmail variable is not set. Please set this in Platform \ Variables."
-    }
-
-    if (-not $EmailServer) {
-        throw "EmailServer variable is not set. Please set this in Platform \ Variables."
-    }
-
-    if (-not $EmailUser) {
-        throw "EmailUser variable is not set. Please set this in Platform \ Variables."
-    }
-
-    if (-not $EmailPassword) {
-        throw "EmailPassword variable is not set. Please set this in Platform \ Variables."
-    }
-    
-    Email {
-        EmailBody -FontFamily 'Calibri' -Size 15 {
-            EmailTextBox {
-                $Message
-            }
-            EmailHtml { 
-                $Body
-            }
-        }
-    } -To $ToEmail -From $FromEmail -Server $EmailServer -Subject $Message -Username $EmailUser -Password $EmailPassword
+    $EmailBody = "<html><body><h1>Job $($Job.Status.ToString()) - $($Job.ScriptFullPath) ($($Job.Id))</h1>$Description<pre>$Output</pre><a href=`"$ApiUrl/admin/automation/jobs/$($Job.Id)`">View Job</a></body></html>"
+    $Subject = "PowerShell Universal Job $($Job.Status.ToString()) - $($Job.ScriptFullPath) ($($Job.Id))"
 }
+else {
+    $Trigger = Get-PSUTrigger | Where-Object Name -eq $UAJob.Trigger
+    switch ($Trigger.EventType) {
+        ([PowerShellUniversal.EventType]::ServerStarted) {
+            $EmailBody = "<html><body><h1>PowerShell Universal Server Started - $($env:ComputerName)</h1><a href=`"$ApiUrl`">View</a></body></html>"
+            $Subject = "PowerShell Universal Server Started - $($env:ComputerName)"
+        }
+        ([PowerShellUniversal.EventType]::DashboardStarted) {
+            $EmailBody = "<html><body><h1>PowerShell Universal App Started - $($Dashboard.Name)</h1><a href=`"$ApiUrl/admin/apps`">View</a></body></html>"
+            $Subject = "PowerShell Universal App Stopped - $($Dashboard.Name)"
+        }
+        ([PowerShellUniversal.EventType]::DashboardStopped) {
+            $EmailBody = "<html><body><h1>PowerShell Universal App Stopped - $($Dashboard.Name)</h1><a href=`"$ApiUrl/admin/apps`">View</a></body></html>"
+            $Subject = "PowerShell Universal App Stopped - $($Dashboard.Name)"
+        }
+        ([PowerShellUniversal.EventType]::NewUserLogin) {
+            $EmailBody = "<html><body><h1>PowerShell Universal New User Login - $($User.Name)</h1><a href=`"$ApiUrl/admin/security/identities`">View</a></body></html>"
+            $Subject = "PowerShell Universal New User Login - $($User.Name)"
+        }
+        ([PowerShellUniversal.EventType]::RevokedAppTokenUsage) {
+            $EmailBody = "<html><body><h1>PowerShell Universal Revoked App Token Usage - $($AppToken.Description)</h1><a href=`"$ApiUrl/admin/security/tokens`">View</a></body></html>"
+            $Subject = "PowerShell Universal Revoked App Token Usage - $($AppToken.Description)"
+        }
+        ([PowerShellUniversal.EventType]::ApiAuthenticationFailed) {
+            $EmailBody = "<html><body><h1>PowerShell Universal API Authentication Failure - $($Data.Url)</h1><a href=`"$ApiUrl/admin/apis/endpoints`">View</a></body></html>"
+            $Subject = "PowerShell Universal API Authentication Failure - $($Data.Url)"
+        }
+        ([PowerShellUniversal.EventType]::ApiError) {
+            $EmailBody = "<html><body><h1>PowerShell Universal API Error - $($Data.Url)</h1><a href=`"$ApiUrl/admin/apis/endpoints`">View</a></body></html>"
+            $Subject = "PowerShell Universal API Error - $($Data.Url)"
+        }
+        ([PowerShellUniversal.EventType]::LicenseExpiring) {
+            $Description = "Your PowerShell Universal license is expiring soon."
+            $EmailBody = "<html><body><h1>PowerShell Universal License Expiring - $($License.EndDate.ToShortDate())</h1><a href=`"$ApiUrl/admin/settings/licenses`">View</a></body></html>"
+            $Subject = "PowerShell Universal  icense Expiring - $($License.EndDate.ToShortDate())"
+        }
+        ([PowerShellUniversal.EventType]::LicenseExpired) {
+            $Description = "Your PowerShell Universal license is expired."
+            $EmailBody = "<html><body><h1>PowerShell Universal License Expired - $($License.EndDate.ToShortDate())</h1><a href=`"$ApiUrl/admin/settings/licenses`">View</a></body></html>"
+            $Subject = "PowerShell Universal License Expired - $($License.EndDate.ToShortDate())"
+        }
+        ([PowerShellUniversal.EventType]::HealthCheckFailed) {
+            $EmailBody = "<html><body><h1>PowerShell Universal Health Check Failed - $($HealthCheck.Name)</h1>$($HealthCheck.Message)<a href=`"$ApiUrl/admin/platform/health-checks`">View</a></body></html>"
+            $Subject = "PowerShell Universal Health Check Failed - $($HealthCheck.Name)"
+        }
+    }
+}
+
+$Parameters = @{
+    From    = @{
+        Name  = $PSUTriggerEmailFromName
+        Email = $PSUTriggerEmailFromEmail
+    }
+    To      = $PSUTriggerEmailToEmail
+    Subject = $Subject
+    Html    = $EmailBody
+}
+
+if ($Secret:PSUTriggerEmailGraphClientId) {
+    $Parameters.Credential = ConvertTo-GraphCredential -ClientID $Secret:PSUTriggerEmailGraphClientId -ClientSecret $Secret:PSUTriggerEmailGraphClientSecret -DirectoryID $Secret:PSUTriggerEmailGraphDirectoryId
+    $Parameters.Graph = $true
+}
+elseif ($Secret:PSUTriggerEmailCredential) {
+    $Parameters.Credential = $Secret:PSUTriggerEmailCredential
+    $Parameters.Server = $PSUTriggerEmailServer
+    $Parameters.SecureSocketOptions = 'Auto'
+}
+
+$Parameters
+
+Send-EmailMessage @Parameters
