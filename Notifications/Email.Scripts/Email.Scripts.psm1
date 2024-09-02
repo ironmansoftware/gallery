@@ -40,6 +40,10 @@ else {
             $EmailBody = "<html><body><h1>PowerShell Universal Server Started - $($env:ComputerName)</h1><a href=`"$ApiUrl`">View</a></body></html>"
             $Subject = "PowerShell Universal Server Started - $($env:ComputerName)"
         }
+        ([PowerShellUniversal.EventType]::ServerStopped) {
+            $EmailBody = "<html><body><h1>PowerShell Universal Server Stopped - $($env:ComputerName)</h1><a href=`"$ApiUrl`">View</a></body></html>"
+            $Subject = "PowerShell Universal Server Stopped - $($env:ComputerName)"
+        }
         ([PowerShellUniversal.EventType]::DashboardStarted) {
             $EmailBody = "<html><body><h1>PowerShell Universal App Started - $($Dashboard.Name)</h1><a href=`"$ApiUrl/admin/apps`">View</a></body></html>"
             $Subject = "PowerShell Universal App Stopped - $($Dashboard.Name)"
