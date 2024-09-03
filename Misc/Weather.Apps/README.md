@@ -18,4 +18,4 @@ muc                    # airport code (3 letters)
 -78.46,106.79          # GPS coordinates
 ```
 
-![Weather Card](https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/Msic/Weather.Apps.png)
+![Weather Card](https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/Misc/Weather.Apps.png)
