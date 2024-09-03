@@ -24,6 +24,10 @@ Contains full apps that can be run with PowerShell Universal.
 
 Contains scripts that interact with the Microsoft Graph.
 
+### [Misc](/Misc)
+
+Miscellaneous scripts, such as weather components.
+
 ### [Notifications](/Notifications)
 
 Contains scripts that can be used to send notifications like email and chat apps.
