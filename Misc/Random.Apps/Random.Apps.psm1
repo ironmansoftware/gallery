@@ -1,3 +1,4 @@
+
 function New-UDRandomPassword {
     param(
         [int]$Length = 12,
@@ -48,34 +49,40 @@ function New-UDRandom {
         if ($Tools.Length -gt 1) {
             New-UDSelect -Label "Tool" -Option {
                 $Tools | ForEach-Object {
-                    New-UDSelectOption -Name $_ -Value $_ -Id -OnChange {
-                        $Page:Tool = $EventData
-                    }
+                    New-UDSelectOption -Name $_ -Value $_ 
                 }
-            }
+            } -OnChange {
+                $Page:Tool = $EventData
+                Sync-UDElement -Id 'form'
+            } -DefaultValue $Tools[0]
+            $Page:Tool = $Tools[0]
         }
         else {
             $Page:Tool = $Tools[0]
         }
 
-        if ($Page:Tool -eq "Password") {
-            New-UDSlider -Label "Length" -Id "Length" -DefaultValue 12 -Min 4 -Max 128
-            New-UDCheckbox -Label "Include Uppercase" -Id "IncludeUppercase"
-            New-UDCheckbox -Label "Include Lowercase" -Id "IncludeLowercase"
-            New-UDCheckbox -Label "Include Numbers" -Id "IncludeNumbers"
-            New-UDCheckbox -Label "Include Special Characters" -Id "IncludeSpecialCharacters"
+        New-UDDynamic -Id 'form' -Content {
+            if ($Page:Tool -eq "Password") {
+                New-UDTypography "Length"
+                New-UDSlider -Id "Length" -Value 12 -Min 4 -Max 128
+                New-UDCheckbox -Label "Include Uppercase" -Id "IncludeUppercase"
+                New-UDCheckbox -Label "Include Lowercase" -Id "IncludeLowercase"
+                New-UDCheckbox -Label "Include Numbers" -Id "IncludeNumbers"
+                New-UDCheckbox -Label "Include Special Characters" -Id "IncludeSpecialCharacters"
+            }
+            elseif ($Page:Tool -eq "Number") {
+                New-UDTypography "Minimum"
+                New-UDSlider -Id "Minimum" -Value 0 -Min 0 -Max 10000
+                New-UDTypography "Maximum"
+                New-UDSlider -Id "Maximum" -Value 100 -Min 0 -Max 10000
+            }
+            elseif ($Page:Tool -eq "ListItem") {
+                New-UDTextbox -Label "Items" -Id "Items" -Multiline -Rows 4 -RowsMax 10
+            }
         }
-        elseif ($Page:Tool -eq "Number") {
-            New-UDSlider -Label "Minimum" -Id "Minimum" -DefaultValue 0 -Min 0 -Max 10000
-            New-UDSlider -Label "Maximum" -Id "Maximum" -DefaultValue 100 -Min 0 -Max 10000
-        }
-        elseif ($Page:Tool -eq "ListItem") {
-            New-UDTextarea -Label "Items" -Id "Items"
-        }
-
     } -OnSubmit {
         if ($Page:Tool -eq "Password") {
-            $Page:Password = New-UDRandomPassword -Length $EventData.Length -IncludeUppercase:$EventData.IncludeUppercase -IncludeLowercaseL$EventData.IncludeLowercase -IncludeNumbers $EventData.IncludeNumbers -IncludeSpecialCharacters $EventData.IncludeSpecialCharacters
+            $Page:Password = New-UDRandomPassword -Length $EventData.Length -IncludeUppercase:$EventData.IncludeUppercase -IncludeLowercase:$EventData.IncludeLowercase -IncludeNumbers:$EventData.IncludeNumbers -IncludeSpecialCharacters:$EventData.IncludeSpecialCharacters
         } 
         elseif ($Page:Tool -eq "GUID") {
             $Page:Guid = New-Guid
@@ -109,9 +116,11 @@ function New-UDRandom {
             }
             elseif ($Page:Tool -eq "Powerball") {
                 $Page:Powerball | Select-Object -First 5 | ForEach-Object {
-                    New-UDBadge -Text $_
+                    New-UDChip -Label $_
                 }
-                New-UDBadge -Text $Page:Powerball[-1] -BackgroundColor "red"
+                New-UDChip -Label $Page:Powerball[-1] -Style @{
+                    backgroundColor = 'red'
+                }
             }
         }
     }
