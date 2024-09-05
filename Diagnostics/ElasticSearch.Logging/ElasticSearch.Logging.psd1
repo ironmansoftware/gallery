@@ -8,9 +8,9 @@
     PrivateData   = @{
         PSData = @{
             Tags       = @('app', 'logging', 'elasticsearch')
-            LicenseUri = 'https://github.com/ironmansoftware/scripts/blob/main/LICENSE'
-            ProjectUri = 'https://github.com/ironmansoftware/scripts/tree/main/Diagnostics/ElasticSearch.Logging'
-            IconUri    = 'https://raw.githubusercontent.com/ironmansoftware/scripts/main/images/script.png'
+            LicenseUri = 'https://github.com/ironmansoftware/gallery/blob/main/LICENSE'
+            ProjectUri = 'https://github.com/ironmansoftware/gallery/tree/main/Diagnostics/ElasticSearch.Logging'
+            IconUri    = 'https://raw.githubusercontent.com/ironmansoftware/gallery/main/images/script.png'
         } 
     } 
 }
