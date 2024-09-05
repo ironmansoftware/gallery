@@ -20,6 +20,10 @@ Contains scripts and widgets that are specific to Active Directory.
 
 Contains full apps that can be run with PowerShell Universal.
 
+### [Diagnostics](/Diagnostics)
+
+Diagnostic tools for PowerShell Universal.
+
 ### [Graph](/Graph)
 
 Contains scripts that interact with the Microsoft Graph.
