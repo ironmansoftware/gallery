@@ -36,6 +36,10 @@ Miscellaneous scripts, such as weather components.
 
 Contains scripts that can be used to send notifications like email and chat apps.
 
+### [Office](/Office)
+
+Contains scripts that interact with Microsoft Office products.
+
 ### [PowerShell](/PowerShell)
 
 Contains general purpose PowerShell scripts and widgets.
@@ -65,24 +69,20 @@ Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'https://gallery.
 
 ### PowerShell Universal v5
 
-This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the library by clicking Platform \ Library.
+This repository is automatically installed with PowerShell Universal v5 and integrated into the admin console. You can access the gallery by clicking Platform \ Gallery.
 
 ![](/images/library.png)
 
-The library contains a collection of modules that you can use in your environment. You can install these modules directly from the library page.
-
-![](/images/library-page.png)
-
-You can also access the library from various resource pages.
+The gallery contains a collection of modules that you can use in your environment. You can install these modules directly from the gallery page. You can also access the gallery from various resource pages.
 
 ![](/images/library-button.png)
 
-Solutions installed from the library will appear in the Modules page and their resources will automatically be added.
+Solutions installed from the gallery will appear in the Modules page and their resources will automatically be added.
 
 ### PowerShell Universal v4
 
 This repository can be installed with PowerShell Universal v4 by registering it as a module repository.
-
+ 
 #### Installation
 
 PowerShell Universal uses PSResourceGet. You will need to install this module.
@@ -99,9 +99,19 @@ Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'https://gallery.
 
 #### Add Resources to PSU
 
-You can add resources found in this library to your PSU instance by visiting the modules page.  Click Platform \ Modules \ Repositories and select the PSUScriptLibrary repository.
+You can add resources found in this gallery to your PSU instance by visiting the modules page.  Click Platform \ Modules \ Repositories and select the PSUScriptLibrary repository.
 
 ![](/images/modules.png)
+
+### Offline Installation
+
+To install this repository offline, you can download the repository and register a folder a provider. 
+
+```powershell
+Invoke-WebRequest -Uri 'https://github.com/ironmansoftware/gallery/releases/download/1.0.0/library.zip' -OutFile 'library.zip'
+Expand-Archive -Path 'library.zip' -DestinationPath 'C:\gallery'
+Register-PSRepository -Name 'PSUScriptLibrary' -SourceLocation 'C:\gallery'
+```
 
 ## Contribution guidelines
 
