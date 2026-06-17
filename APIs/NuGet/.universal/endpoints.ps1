@@ -104,7 +104,7 @@ New-PSUEndpoint -Url '/nuget/v3/registration/:id/index.json' -Description 'Retur
         return New-PSUApiResponse -StatusCode 400 -Body 'The package ID is invalid.'
     }
 
-    $indexPath = Join-Path (Join-Path (Join-Path (Get-PSUNuGetFeedPath) 'v3\registration') $id.ToLowerInvariant()) 'index.json'
+    $indexPath = Join-Path (Join-Path (Join-Path (Join-Path (Get-PSUNuGetFeedPath) 'v3') 'registration') $id.ToLowerInvariant()) 'index.json'
     New-PSUNuGetJsonFileResponse -Path $indexPath
 }
 
