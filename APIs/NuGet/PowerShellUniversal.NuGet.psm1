@@ -12,7 +12,7 @@ function Get-PSUNuGetFeedPath {
         return (Join-Path $env:Data__RepositoryPath '.nuget')
     }
 
-    Join-Path ([Environment]::GetFolderPath('CommonApplicationData')) 'PowerShellUniversal\NuGet'
+    Join-Path (Join-Path ([Environment]::GetFolderPath('CommonApplicationData')) 'PowerShellUniversal') 'NuGet'
 }
 
 function Get-PSUNuGetRequestBaseUrl {
