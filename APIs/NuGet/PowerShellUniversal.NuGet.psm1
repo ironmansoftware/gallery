@@ -101,7 +101,7 @@ function Initialize-PSUNuGetRepository {
         $Path,
         (Join-Path $Path '_catalog'),
         (Join-Path $Path 'v3-flatcontainer'),
-        (Join-Path $Path 'v3\registration')
+        (Join-Path (Join-Path $Path 'v3') 'registration')
     )
 
     foreach ($directory in $directories) {
