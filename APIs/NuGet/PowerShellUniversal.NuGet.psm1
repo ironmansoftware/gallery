@@ -110,7 +110,7 @@ function Initialize-PSUNuGetRepository {
         }
     }
 
-    $catalogFile = Join-Path $Path '_catalog\packages.json'
+    $catalogFile = Join-Path (Join-Path $Path '_catalog') 'packages.json'
     if (-not (Test-Path $catalogFile)) {
         '[]' | Set-Content -Path $catalogFile -Encoding utf8
     }
