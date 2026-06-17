@@ -125,7 +125,7 @@ function Get-PSUNuGetCatalogFile {
     )
 
     Initialize-PSUNuGetRepository -Path $Path | Out-Null
-    Join-Path $Path '_catalog\packages.json'
+    Join-Path (Join-Path $Path '_catalog') 'packages.json'
 }
 
 function Read-PSUNuGetCatalog {
