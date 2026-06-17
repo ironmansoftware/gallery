@@ -115,7 +115,7 @@ New-PSUEndpoint -Url '/nuget/v3/registration/:id/:leaf' -Description 'Returns a 
         return New-PSUApiResponse -StatusCode 400 -Body 'The registration path is invalid.'
     }
 
-    $leafPath = Join-Path (Join-Path (Join-Path (Get-PSUNuGetFeedPath) 'v3\registration') $id.ToLowerInvariant()) $leaf.ToLowerInvariant()
+    $leafPath = Join-Path (Join-Path (Join-Path (Join-Path (Get-PSUNuGetFeedPath) 'v3') 'registration') $id.ToLowerInvariant()) $leaf.ToLowerInvariant()
     New-PSUNuGetJsonFileResponse -Path $leafPath
 }
 
