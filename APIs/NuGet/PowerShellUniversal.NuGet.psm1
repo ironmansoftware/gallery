@@ -487,7 +487,7 @@ function Update-PSUNuGetStaticMetadata {
 
     Initialize-PSUNuGetRepository -Path $Path | Out-Null
     $packages = @(Read-PSUNuGetCatalog -Path $Path)
-    $registrationRoot = Join-Path $Path 'v3\registration'
+    $registrationRoot = Join-Path (Join-Path $Path 'v3') 'registration'
 
     if (Test-Path $registrationRoot) {
         Remove-Item -Path $registrationRoot -Recurse -Force
