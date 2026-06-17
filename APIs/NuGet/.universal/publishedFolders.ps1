@@ -9,7 +9,7 @@ else {
 }
 
 $FlatContainerPath = Join-Path $NuGetFeedPath 'v3-flatcontainer'
-$RegistrationPath = Join-Path $NuGetFeedPath 'v3\registration'
+$RegistrationPath = Join-Path (Join-Path $NuGetFeedPath 'v3') 'registration'
 
 New-Item -ItemType Directory -Path $FlatContainerPath -Force | Out-Null
 New-Item -ItemType Directory -Path $RegistrationPath -Force | Out-Null
