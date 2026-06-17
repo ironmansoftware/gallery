@@ -5,7 +5,7 @@ elseif ($env:Data__RepositoryPath) {
     Join-Path $env:Data__RepositoryPath '.nuget'
 }
 else {
-    Join-Path ([Environment]::GetFolderPath('CommonApplicationData')) 'PowerShellUniversal\NuGet'
+    Join-Path (Join-Path ([Environment]::GetFolderPath('CommonApplicationData')) 'PowerShellUniversal') 'NuGet'
 }
 
 $FlatContainerPath = Join-Path $NuGetFeedPath 'v3-flatcontainer'
