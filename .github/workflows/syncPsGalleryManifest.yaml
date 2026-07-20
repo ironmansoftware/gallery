@@ -1,37 +1,33 @@
-name: Sync PowerShell Gallery Manifest
+name: sync powershell gallery manifest
 
 on:
+  schedule:
+    - cron: '17 * * * *'
   workflow_dispatch:
     inputs:
-      fullSync:
+      full_sync:
         description: Run a full PowerShell Gallery scan instead of using the last successful sync as a cutoff.
-        required: false
         default: false
         type: boolean
-  schedule:
-    - cron: '0 * * * *'
-
-permissions:
-  actions: read
-  contents: write
-  pull-requests: write
 
 concurrency:
   group: psgallery-manifest-sync
   cancel-in-progress: false
+
+permissions:
+  actions: read
+  contents: write
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v6
 
       - name: Detect last successful sync
-        id: last_sync
-        shell: pwsh
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        id: last-sync
         run: |
           $headers = @{
             Authorization = "Bearer $env:GITHUB_TOKEN"
@@ -39,7 +35,7 @@ jobs:
             'X-GitHub-Api-Version' = '2022-11-28'
           }
 
-          $uri = 'https://api.github.com/repos/{0}/actions/workflows/syncPsGalleryManifest.yaml/runs?status=success&exclude_pull_requests=true&per_page=1' -f '${{ github.repository }}'
+          $uri = 'https://api.github.com/repos/{0}/actions/workflows/syncPsGalleryManifest.yaml/runs?status=success&exclude_pull_requests=true&per_page=1' -f $env:GITHUB_REPOSITORY
 
           try {
             $response = Invoke-RestMethod -Uri $uri -Headers $headers
@@ -57,20 +53,22 @@ jobs:
           else {
             Write-Host 'No prior successful sync detected.'
           }
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Sync manifest
         id: sync
-        shell: pwsh
         run: |
           $parameters = @{
             ManifestPath = '.\manifest.json'
           }
 
-          if ('${{ inputs.fullSync }}' -eq 'true') {
+          if ($env:FULL_SYNC -eq 'true') {
             $parameters.ForceFullSync = $true
           }
-          elseif (-not [string]::IsNullOrWhiteSpace('${{ steps.last_sync.outputs.value }}')) {
-            $parameters.PublishedAfter = '${{ steps.last_sync.outputs.value }}'
+          elseif (-not [string]::IsNullOrWhiteSpace($env:LAST_SYNC)) {
+            $parameters.PublishedAfter = $env:LAST_SYNC
           }
           else {
             $parameters.ForceFullSync = $true
@@ -87,36 +85,39 @@ jobs:
             'changed=true' >> $env:GITHUB_OUTPUT
             Write-Host 'Manifest changes detected.'
           }
+        shell: pwsh
+        env:
+          FULL_SYNC: ${{ inputs.full_sync }}
+          LAST_SYNC: ${{ steps.last-sync.outputs.value }}
 
       - name: Commit and push manifest update
-        if: steps.sync.outputs.changed == 'true'
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
+        if: ${{ steps.sync.outputs.changed == 'true' }}
         run: |
           $branch = 'automation/powershell-gallery-manifest-sync'
 
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'Devolutions Bot'
+          git config user.email 'bot@devolutions.net'
           git add manifest.json
           git commit -m 'Sync PowerShell Gallery manifest'
+
+          if (git ls-remote --heads origin $branch) {
+            git fetch origin "+refs/heads/${branch}:refs/remotes/origin/${branch}"
+          }
+
           git push --force-with-lease origin HEAD:$branch
+        shell: pwsh
 
       - name: Create pull request if needed
-        if: steps.sync.outputs.changed == 'true'
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
+        if: ${{ steps.sync.outputs.changed == 'true' }}
         run: |
           $branch = 'automation/powershell-gallery-manifest-sync'
-          $baseBranch = '${{ github.event.repository.default_branch }}'
-          $incrementalCutoff = '${{ steps.last_sync.outputs.value }}'
+          $incrementalCutoff = $env:INCREMENTAL_CUTOFF
 
           if ([string]::IsNullOrWhiteSpace($incrementalCutoff)) {
             $incrementalCutoff = 'full scan'
           }
 
-          $existingPrCount = gh pr list --head $branch --base $baseBranch --state open --json number --jq 'length'
+          $existingPrCount = gh pr list --head $branch --base $env:BASE_BRANCH --state open --json number --jq 'length'
           if ($existingPrCount -gt 0) {
             Write-Host 'An open pull request already exists for the automation branch.'
             exit 0
@@ -125,8 +126,14 @@ jobs:
           $body = @"
           Automated update of manifest.json from the PowerShell Gallery NuGet feed.
 
-          - Trigger: ${{ github.event_name }}
+          - Trigger: $env:TRIGGER
           - Incremental cutoff: $incrementalCutoff
           "@
 
-          gh pr create --base $baseBranch --head $branch --title 'Sync PowerShell Gallery manifest' --body $body
+          gh pr create --base $env:BASE_BRANCH --head $branch --title 'Sync PowerShell Gallery manifest' --body $body
+        shell: pwsh
+        env:
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          GH_TOKEN: ${{ secrets.DEVOLUTIONSBOT_TOKEN }}
+          INCREMENTAL_CUTOFF: ${{ steps.last-sync.outputs.value }}
+          TRIGGER: ${{ github.event_name }}
