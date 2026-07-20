@@ -286,6 +286,13 @@
     "description": "Weather components for PowerShell Universal Apps."
   },
   {
+    "name": "Sampler.PowerShellUniversalTasks",
+    "version": "0.2.0",
+    "source": "PowerShellGallery",
+    "projectUrl": "https://github.com/SynEdgy/Sampler.PowerShellUniversalTasks",
+    "description": "Sampler build tasks for packaging and deploying PowerShell Universal modules."
+  },
+  {
     "name": "UDSliderCaptcha",
     "version": "1.1.0",
     "source": "PowerShellGallery",
