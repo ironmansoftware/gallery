@@ -78,8 +78,8 @@ jobs:
 
           .\.github\scripts\Sync-PsGalleryManifest.ps1 @parameters
 
-          git diff --quiet -- manifest.json
-          if ($LASTEXITCODE -eq 0) {
+          $manifestChanged = -not [string]::IsNullOrWhiteSpace((git status --porcelain -- manifest.json))
+          if (-not $manifestChanged) {
             'changed=false' >> $env:GITHUB_OUTPUT
             Write-Host 'No manifest changes detected.'
           }
