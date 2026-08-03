@@ -1,0 +1,228 @@
+:root {
+  color-scheme: light;
+  color: #111827;
+  --shell-text: #111827;
+  --shell-page-bg: #f5f5f5;
+  --shell-panel-bg: rgba(255, 255, 255, 0.7);
+  --shell-panel-strong-bg: rgba(255, 255, 255, 0.82);
+  --shell-border: rgba(17, 24, 39, 0.08);
+  --shell-shadow: 0 22px 50px rgba(15, 23, 42, 0.08);
+  --shell-preview-bg: rgba(255, 255, 255, 0.96);
+  --shell-hero-bg: rgba(255, 255, 255, 0.96);
+  background: var(--shell-page-bg);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+:root[data-color-mode='dark'] {
+  color-scheme: dark;
+  color: #e5edf8;
+  --shell-text: #e5edf8;
+  --shell-page-bg: #141414;
+  --shell-panel-bg: rgba(9, 18, 32, 0.78);
+  --shell-panel-strong-bg: rgba(13, 23, 39, 0.88);
+  --shell-border: rgba(148, 163, 184, 0.18);
+  --shell-shadow: 0 22px 50px rgba(2, 6, 23, 0.45);
+  --shell-preview-bg: rgba(9, 18, 32, 0.96);
+  --shell-hero-bg: rgba(11, 18, 31, 0.96);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--shell-text);
+  background: transparent;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.shell-layout {
+  min-height: 100vh;
+  background: transparent;
+}
+
+.shell-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 120px;
+  padding: 32px;
+  color: var(--shell-text);
+  background: var(--shell-panel-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--shell-border);
+}
+
+.shell-header .ant-typography,
+.shell-header .ant-typography strong {
+  color: inherit;
+}
+
+.shell-header-copy {
+  min-width: 0;
+}
+
+.shell-header-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  width: min(100%, 360px);
+}
+
+.shell-header-actions .ant-alert {
+  width: 100%;
+}
+
+.shell-theme-control {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
+.shell-theme-caption {
+  text-transform: capitalize;
+}
+
+.shell-content {
+  padding: 32px;
+}
+
+.shell-state {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.component-card {
+  border-radius: 24px;
+  box-shadow: var(--shell-shadow);
+}
+
+.docs-shell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.docs-sidebar {
+  position: sticky;
+  top: 24px;
+}
+
+.docs-sidebar-card,
+.docs-section-card,
+.docs-overview-card,
+.docs-hero {
+  border-radius: 24px;
+  box-shadow: var(--shell-shadow);
+}
+
+.docs-sidebar-card {
+  margin-bottom: 16px;
+  background: var(--shell-panel-strong-bg);
+}
+
+.docs-menu {
+  border-radius: 24px;
+  padding: 12px;
+  background: var(--shell-panel-strong-bg);
+  box-shadow: var(--shell-shadow);
+}
+
+.docs-main,
+.docs-body,
+.docs-example-list {
+  width: 100%;
+}
+
+.docs-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.docs-hero {
+  background: var(--shell-hero-bg);
+}
+
+.docs-kicker {
+  width: fit-content;
+}
+
+.docs-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.docs-preview-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--shell-border);
+  border-radius: 20px;
+  background: var(--shell-preview-bg);
+}
+
+.docs-preview-surface-button {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.docs-preview-surface-button > * {
+  flex: 0 0 auto;
+}
+
+.docs-preview-surface > .ant-switch {
+  align-self: flex-start;
+  width: auto;
+}
+
+.docs-code-block {
+  overflow-x: auto;
+  margin: 0;
+  padding: 20px;
+  border-radius: 20px;
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+.docs-code-block code {
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+}
+
+.docs-parameter-table .ant-table {
+  border-radius: 18px;
+}
+
+@media (max-width: 960px) {
+  .shell-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shell-header-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .docs-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar {
+    position: static;
+  }
+}
