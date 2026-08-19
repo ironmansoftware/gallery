@@ -287,7 +287,7 @@
   },
   {
     "name": "Sampler.PowerShellUniversalTasks",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "source": "PowerShellGallery",
     "projectUrl": "https://github.com/SynEdgy/Sampler.PowerShellUniversalTasks",
     "description": "Sampler build tasks for packaging and deploying PowerShell Universal modules."
